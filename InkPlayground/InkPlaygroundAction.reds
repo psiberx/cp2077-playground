@@ -2,11 +2,11 @@ import InkPlayground.InkPlaygroundPopup
 
 @replaceMethod(BaseContextEvents)
 protected final func UpdateGenericExplorationInputHints(stateContext: ref<StateContext>, scriptInterface: ref<StateGameScriptInterface>) -> Void {
-    if this.ShouldForceRefreshInputHints(stateContext, scriptInterface) {
+	if this.ShouldForceRefreshInputHints(stateContext, scriptInterface) {
 		this.RemoveGenericExplorationInputHints(stateContext, scriptInterface);
 		this.RemoveInkPlaygroundPopupInputHints(stateContext, scriptInterface);
 		return;
-    };
+	};
 
 	let isValidState: Bool = this.IsStateValidForExploration(stateContext, scriptInterface);
 
@@ -72,9 +72,9 @@ protected cb func OnAction(action: ListenerAction, consumer: ListenerActionConsu
 		let blackboard: ref<IBlackboard> = player.GetPlayerStateMachineBlackboard();
 		let state: gamePSMVehicle = IntEnum(blackboard.GetInt(GetAllBlackboardDefs().PlayerStateMachine.Vehicle));
 
-	    if Equals(state, gamePSMVehicle.Default) {
+		if Equals(state, gamePSMVehicle.Default) {
 			InkPlaygroundPopup.Show(this);
 			ListenerActionConsumer.DontSendReleaseEvent(consumer);
 		}
-    }
+	}
 }
