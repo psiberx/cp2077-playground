@@ -7,6 +7,10 @@ public class InGamePopupFooter extends inkCustomController {
 
 	protected let m_fluffText: wref<inkText>;
 
+	protected let m_inputHolder: wref<inkCompoundWidget>;
+
+	protected let m_buttonHints: wref<ButtonHints>;
+
 	protected cb func OnCreate() -> Void {
 		let footer: ref<inkCanvas> = new inkCanvas();
 		footer.SetName(n"footer");
@@ -51,70 +55,29 @@ public class InGamePopupFooter extends inkCustomController {
 		fluffText.SetSize(new Vector2(100.0, 32.0));
 		fluffText.Reparent(footer);
 
-		let inputHints: ref<inkHorizontalPanel> = new inkHorizontalPanel();
-		inputHints.SetName(n"inputHints");
-		inputHints.SetInteractive(true);
-		inputHints.SetFitToContent(true);
-		inputHints.SetHAlign(inkEHorizontalAlign.Right);
-		inputHints.SetAnchor(inkEAnchor.BottomRight);
-		inputHints.SetAnchorPoint(new Vector2(1.0, 1.0));
-		inputHints.SetRenderTransformPivot(new Vector2(1.0, 1.0));
-		inputHints.SetMargin(new inkMargin(0.0, 0.0, 32.0, 0.0));
-		inputHints.Reparent(footer);
-
-		let inputClose: ref<inkHorizontalPanel> = new inkHorizontalPanel();
-		inputClose.SetName(n"inputClose");
-		inputClose.SetFitToContent(true);
-		inputClose.Reparent(inputHints);
-
-		let inputDisplayController: ref<inkHorizontalPanel> = new inkHorizontalPanel();
-		inputDisplayController.SetName(n"inputDisplayController");
-		inputDisplayController.SetAffectsLayoutWhenHidden(true);
-		inputDisplayController.SetFitToContent(true);
-		inputDisplayController.SetHAlign(inkEHorizontalAlign.Center);
-		inputDisplayController.SetVAlign(inkEVerticalAlign.Center);
-		inputDisplayController.SetSize(new Vector2(40.0, 32.0));
-		inputDisplayController.Reparent(inputClose);
-
-		let inputRoot: ref<inkCanvas> = new inkCanvas();
-		inputRoot.SetName(n"inputRoot");
-		inputRoot.SetHAlign(inkEHorizontalAlign.Left);
-		inputRoot.SetVAlign(inkEVerticalAlign.Top);
-		inputRoot.SetSize(new Vector2(64.0, 64.0));
-		inputRoot.Reparent(inputDisplayController);
-
-		let inputIcon: ref<inkImage> = new inkImage();
-		inputIcon.SetName(n"inputIcon");
-		inputIcon.SetAtlasResource(r"base\\gameplay\\gui\\common\\input\\icons_keyboard.inkatlas");
-		inputIcon.SetTexturePart(n"kb_c");
-		inputIcon.SetAffectsLayoutWhenHidden(true);
-		inputIcon.SetHAlign(inkEHorizontalAlign.Center);
-		inputIcon.SetVAlign(inkEVerticalAlign.Center);
-		inputIcon.SetAnchor(inkEAnchor.Centered);
-		inputIcon.SetAnchorPoint(new Vector2(0.5, 0.5));
-		inputIcon.SetTintColor(ThemeColors.ElectricBlue());
-		inputIcon.SetSize(new Vector2(64.0, 64.0));
-		inputIcon.Reparent(inputRoot);
-
-		let text: ref<inkText> = new inkText();
-		text.SetName(n"text");
-		text.SetFontFamily("base\\gameplay\\gui\\fonts\\raj\\raj.inkfontfamily");
-		text.SetFontStyle(n"Semi-Bold");
-		text.SetFontSize(38);
-		text.SetLetterCase(textLetterCase.UpperCase);
-		text.SetScrollTextSpeed(0.2);
-		text.SetLocalizedTextString("LocKey#22195");
-		text.SetFitToContent(true);
-		text.SetMargin(new inkMargin(5.0, 0.0, 0.0, 0.0));
-		text.SetVAlign(inkEVerticalAlign.Center);
-		text.SetTintColor(ThemeColors.Bittersweet());
-		text.SetSize(new Vector2(100.0, 32.0));
-		text.Reparent(inputClose);
+		let inputHolder: ref<inkCanvas> = new inkCanvas();
+		inputHolder.SetName(n"inputHolder");
+		inputHolder.SetFitToContent(true);
+		inputHolder.SetHAlign(inkEHorizontalAlign.Right);
+		inputHolder.SetAnchor(inkEAnchor.BottomRight);
+		inputHolder.SetAnchorPoint(new Vector2(1.0, 1.0));
+		inputHolder.SetRenderTransformPivot(new Vector2(1.0, 1.0));
+		inputHolder.SetMargin(new inkMargin(0.0, 0.0, 32.0, 0.0));
+		inputHolder.Reparent(footer);
 
 		this.m_fluffIcon = fluffIcon;
 		this.m_fluffText = fluffText;
+		this.m_inputHolder = inputHolder;
 
 		this.SetRootWidget(footer);
+	}
+
+	protected cb func OnInitialize() -> Void {
+		let uiSystem: ref<UISystem> = GameInstance.GetUISystem(this.GetGame());
+
+		this.m_buttonHints = uiSystem.SpawnButtonHints(this.m_inputHolder, n"Root");
+		this.m_buttonHints.OverrideStyle(n"popup");
+		this.m_buttonHints.AddButtonHint(n"cancel", "LocKey#22195");
 	}
 
 	public func SetFluffIcon(icon: CName) -> Void {
