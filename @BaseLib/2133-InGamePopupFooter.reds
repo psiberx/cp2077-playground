@@ -75,9 +75,13 @@ public class InGamePopupFooter extends inkCustomController {
 	protected cb func OnInitialize() -> Void {
 		let uiSystem: ref<UISystem> = GameInstance.GetUISystem(this.GetGame());
 
-		this.m_buttonHints = uiSystem.SpawnButtonHints(this.m_inputHolder, n"Root");
+		this.m_buttonHints = uiSystem.SpawnButtonHints(this.m_inputHolder);
 		this.m_buttonHints.OverrideStyle(n"popup");
 		this.m_buttonHints.AddButtonHint(n"cancel", "LocKey#22195");
+	}
+
+	public func GetHints() -> wref<ButtonHints> {
+		return this.m_buttonHints;
 	}
 
 	public func SetFluffIcon(icon: CName) -> Void {

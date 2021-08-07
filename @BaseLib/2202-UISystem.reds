@@ -29,7 +29,7 @@ public func HideCustomPopup(controller: ref<inkCustomPopupController>) -> Void {
 let buttonHints: ref<inkWidget>;
 
 @addMethod(UISystem)
-public func SpawnButtonHints(parentWidget: wref<inkWidget>) -> ButtonHints {
+public func SpawnButtonHints(parentWidget: wref<inkWidget>) -> ref<ButtonHints> {
 	return this.buttonHints.GetController().SpawnFromLocal(parentWidget, n"Root").GetController() as ButtonHints;
 }
 
