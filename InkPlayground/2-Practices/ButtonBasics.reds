@@ -16,22 +16,21 @@ public class ButtonBasics extends Practice {
 		let rows: ref<inkVerticalPanel> = new inkVerticalPanel();
 		rows.SetName(n"rows");
 		rows.SetFitToContent(true);
-		rows.SetAnchor(inkEAnchor.BottomCenter);
-		rows.SetAnchorPoint(new Vector2(0.5, 1.0));
-		rows.SetMargin(new inkMargin(0.0, 0.0, 0.0, 50.0));
-		rows.SetChildMargin(new inkMargin(0.0, 15.0, 0.0, 15.0));
+		rows.SetAnchor(inkEAnchor.Centered);
+		rows.SetAnchorPoint(new Vector2(0.5, 0.5));
+		rows.SetChildMargin(new inkMargin(0.0, 30.0, 0.0, 30.0));
 		rows.Reparent(root);
 
 		let top: ref<inkHorizontalPanel> = new inkHorizontalPanel();
 		top.SetFitToContent(true);
 		top.SetHAlign(inkEHorizontalAlign.Center);
-		top.SetChildMargin(new inkMargin(10.0, 0.0, 10.0, 0.0));
+		top.SetChildMargin(new inkMargin(20.0, 0.0, 20.0, 0.0));
 		top.Reparent(rows);
 
 		let bottom: ref<inkHorizontalPanel> = new inkHorizontalPanel();
 		bottom.SetFitToContent(true);
 		bottom.SetHAlign(inkEHorizontalAlign.Center);
-		bottom.SetChildMargin(new inkMargin(10.0, 0.0, 10.0, 0.0));
+		bottom.SetChildMargin(new inkMargin(20.0, 0.0, 20.0, 0.0));
 		bottom.Reparent(rows);
 
 		this.m_top = top;
@@ -78,18 +77,20 @@ public class ButtonBasics extends Practice {
 
 	protected func RegisterListeners() -> Void {
 		for button in this.m_buttons {
-			button.RegisterToCallback(n"OnClick", this, n"OnButtonClick");
-			button.RegisterToCallback(n"OnRelease", this, n"OnButtonInput");
+			button.RegisterToCallback(n"OnClick", this, n"OnClick");
+			button.RegisterToCallback(n"OnRelease", this, n"OnRelease");
+			button.RegisterToCallback(n"OnEnter", this, n"OnEnter");
+			button.RegisterToCallback(n"OnLeave", this, n"OnLeave");
 		};
 	}
 
-	protected cb func OnButtonClick(widget: wref<inkWidget>) -> Bool {
+	protected cb func OnClick(widget: wref<inkWidget>) -> Bool {
 		let button: ref<inkCustomButtonController> = widget.GetController() as inkCustomButtonController;
 
 		this.Log("[" + NameToString(button.GetName()) + "] Event: OnClick");
 	}
 
-	protected cb func OnButtonInput(evt: ref<inkPointerEvent>) -> Bool {
+	protected cb func OnRelease(evt: ref<inkPointerEvent>) -> Bool {
 		let button: ref<inkCustomButtonController> = evt.GetTarget().GetController() as inkCustomButtonController;
 
 		if evt.IsAction(n"popup_moveUp") {
@@ -97,6 +98,28 @@ public class ButtonBasics extends Practice {
 
 			this.PlaySound(n"MapPin", n"OnCreate");
 			this.Log("[" + NameToString(button.GetName()) + "] State: " + (button.IsDisabled() ? "Disabled" : "Enabled"));
+
+			this.UpdateHints(button);
 		};
+	}
+
+	protected cb func OnEnter(evt: ref<inkPointerEvent>) -> Bool {
+		let button: ref<inkCustomButtonController> = evt.GetTarget().GetController() as inkCustomButtonController;
+
+		this.UpdateHints(button);
+	}
+
+	protected cb func OnLeave(evt: ref<inkPointerEvent>) -> Bool {
+		this.RemoveHints();
+	}
+
+	protected func UpdateHints(button: ref<inkCustomButtonController>) -> Void {
+		this.UpdateHint(n"popup_moveUp", button.IsEnabled() ? "Disable" : "Enable");
+		this.UpdateHint(n"click", "Interact", button.IsEnabled());
+	}
+
+	protected func RemoveHints() -> Void {
+		this.RemoveHint(n"popup_moveUp");
+		this.RemoveHint(n"click");
 	}
 }

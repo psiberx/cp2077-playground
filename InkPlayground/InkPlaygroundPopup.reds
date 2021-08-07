@@ -23,8 +23,11 @@ public class InkPlaygroundPopup extends InGamePopupController {
 
 		this.m_footer = InGamePopupFooter.Create();
 		this.m_footer.SetFluffIcon(n"fluff_triangle2");
-		this.m_footer.SetFluffText("This entire widget is 100% built from scratch using redscript.\nThere are no resued, wrapped or extended widgets.\nPowered by Base Lib.");
-
+		this.m_footer.SetFluffText(
+			"This entire widget is 100% built from scratch using redscript.\n" +
+			"There are no resued, wrapped or extended widgets.\n" +
+			"Powered by Base Lib prototype."
+		);
 		this.m_footer.Reparent(this);
 
 		this.m_content = InGamePopupContent.Create();
@@ -34,10 +37,16 @@ public class InkPlaygroundPopup extends InGamePopupController {
 		this.m_workbench.SetSize(this.m_content.GetSize());
 		this.m_workbench.Reparent(this.m_content);
 
-		this.m_workbench.AddPractice(new DragImage());
 		this.m_workbench.AddPractice(new ColorPalette());
 		this.m_workbench.AddPractice(new ButtonBasics());
+		this.m_workbench.AddPractice(new DragImage());
 		this.m_workbench.AddPractice(new CursorState());
+	}
+
+	protected cb func OnInitialize() -> Void {
+		super.OnInitialize();
+
+		this.m_workbench.SetHints(this.m_footer.GetHints());
 	}
 
 	public func UseCursor() -> Bool {

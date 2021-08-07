@@ -7,6 +7,8 @@ public class Workbench extends inkCustomController {
 
 	protected let m_journal: wref<Journal>;
 
+	protected let m_buttonHints: wref<ButtonHints>;
+
 	protected let m_areaSize: Vector2;
 
 	protected cb func OnCreate() -> Void {
@@ -61,16 +63,16 @@ public class Workbench extends inkCustomController {
 		this.SetContainerWidget(container);
 	}
 
-	protected cb func OnInitialize() -> Void {
-		this.Log("[Playground] Initialization complete");
-	}
-
 	public func GetContainer() -> wref<inkCanvas> {
 		return this.m_container;
 	}
 
 	public func GetJournal() -> wref<Journal> {
 		return this.m_journal;
+	}
+
+	public func GetHints() -> wref<ButtonHints> {
+		return this.m_buttonHints;
 	}
 
 	public func GetSize() -> Vector2 {
@@ -81,12 +83,16 @@ public class Workbench extends inkCustomController {
 		this.m_areaSize = areaSize;
 	}
 
-	public func Log(entry: String) -> Void {
-		this.m_journal.AddEntry(entry);
+	public func SetHints(buttonHints: wref<ButtonHints>) -> Void {
+		this.m_buttonHints = buttonHints;
 	}
 
 	public func AddPractice(practice: ref<Practice>) -> Void {
 		practice.Assign(this);
+	}
+
+	public func Log(entry: String) -> Void {
+		this.m_journal.AddEntry(entry);
 	}
 
 	public static func Create() -> ref<Workbench> {

@@ -4,6 +4,10 @@ import InkPlayground.Workbench.Practice
 public class DragImage extends Practice {
 	protected let m_logo: ref<inkImage>;
 
+	protected let m_isHovered: Bool;
+
+	protected let m_isDragged: Bool;
+
 	protected let m_dragStartCursor: Vector2;
 
 	protected let m_dragStartMargin: inkMargin;
@@ -23,7 +27,7 @@ public class DragImage extends Practice {
 		logo.SetTexturePart(n"cp_logo");
 		logo.SetAnchor(inkEAnchor.TopLeft);
 		logo.SetAnchorPoint(new Vector2(0.0, 0.0));
-		logo.SetSize(new Vector2(1180.0 / 2.0, 292.0 / 2.0));
+		logo.SetSize(new Vector2(1180.0 / 3.0, 292.0 / 3.0));
 		logo.SetInteractive(true);
 		logo.Reparent(root);
 
@@ -35,7 +39,7 @@ public class DragImage extends Practice {
 	protected cb func OnInitialize() -> Void {
 		let area: Vector2 = this.GetAreaSize();
 		let size: Vector2 = this.m_logo.GetSize();
-		this.m_logo.SetMargin(new inkMargin((area.X - size.X) / 2.0, 155.0, 0.0, 0.0));
+		this.m_logo.SetMargin(new inkMargin((area.X - size.X) / 2.0, (area.Y - size.Y) - 48.0, 0.0, 0.0));
 
 		let scaleAnim: ref<inkAnimScale> = new inkAnimScale();
 		scaleAnim.SetStartScale(new Vector2(0.9, 0.9));
@@ -60,12 +64,16 @@ public class DragImage extends Practice {
 
 		this.m_logo.PlayAnimationWithOptions(animDef, animOpts);
 		this.m_logo.RegisterToCallback(n"OnPress", this, n"OnPress");
+		this.m_logo.RegisterToCallback(n"OnEnter", this, n"OnEnter");
+		this.m_logo.RegisterToCallback(n"OnLeave", this, n"OnLeave");
 
 		this.Log("[Drag Image] Logo is ready");
 	}
 
 	protected cb func OnPress(evt: ref<inkPointerEvent>) -> Bool {
 		if evt.IsAction(n"mouse_left") {
+			this.m_isDragged = true;
+
 			this.m_dragStartMargin = this.m_logo.GetMargin();
 			this.m_dragStartCursor = evt.GetScreenSpacePosition();
 
@@ -87,6 +95,8 @@ public class DragImage extends Practice {
 			animOpts.loopInfinite = true;
 
 			this.m_dragAnimProxy = this.m_logo.PlayAnimationWithOptions(animDef, animOpts);
+
+			this.LockHints();
 		};
 	}
 
@@ -109,6 +119,8 @@ public class DragImage extends Practice {
 
 	protected cb func OnGlobalRelease(evt: ref<inkPointerEvent>) -> Bool {
 		if evt.IsAction(n"mouse_left") {
+			this.m_isDragged = false;
+
 			this.UnregisterFromGlobalInputCallback(n"OnPostOnRelative", this, n"OnGlobalMove");
 			this.UnregisterFromGlobalInputCallback(n"OnPostOnRelease", this, n"OnGlobalRelease");
 
@@ -124,6 +136,29 @@ public class DragImage extends Practice {
 
 			this.m_dragAnimProxy.Stop();
 			this.m_dragAnimProxy = this.m_logo.PlayAnimation(animDef);
+
+			this.UnlockHints();
+			this.UpdateHints();
 		};
+	}
+
+	protected cb func OnEnter(evt: ref<inkPointerEvent>) -> Bool {
+		this.m_isHovered = true;
+
+		this.UpdateHints();
+	}
+
+	protected cb func OnLeave(evt: ref<inkPointerEvent>) -> Bool {
+		this.m_isHovered = false;
+
+		this.UpdateHints();
+	}
+
+	protected func UpdateHints() -> Void {
+		this.UpdateHoldHint(n"mouse_left", "Drag", this.m_isHovered);
+	}
+
+	protected func RemoveHints() -> Void {
+		this.RemoveHint(n"mouse_left");
 	}
 }
