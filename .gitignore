@@ -1,0 +1,6 @@
+/.dev
+/.idea
+/.vscode
+/dist
+/*.log
+~$*
