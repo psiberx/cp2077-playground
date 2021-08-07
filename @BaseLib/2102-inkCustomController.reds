@@ -78,10 +78,10 @@ public abstract class inkCustomController extends inkLogicController {
 
 	protected func InitializeInstance() -> Void {
 		if this.m_isCreated && !this.m_isInitialized {
+			this.InitializeChildren(this.GetRootCompoundWidget());
+
 			this.OnInitialize();
 			this.CallCustomCallback(n"OnInitialize");
-
-			this.InitializeChildren(this.GetRootCompoundWidget());
 
 			this.m_isInitialized = true;
 		};
