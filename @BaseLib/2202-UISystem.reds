@@ -5,13 +5,14 @@
 // - Request show / hide custom popups
 // - Spawn input hints from anywhere
 // - [TODO] Detect current theme colors aka ThemePicker
-//   (to make widgets that are compatible with UI tweaking mods)
+//   (to make widgets compatible with UI tweaking mods)
 //
 // -----------------------------------------------------------------------------
 //
 // class UISystem extends IUISystem {
 //   public func ShowCustomPopup(controller: ref<inkCustomPopupController>) -> Void
 //   public func HideCustomPopup(controller: ref<inkCustomPopupController>) -> Void
+//   public func SpawnButtonHints(parentWidget: wref<inkWidget>) -> ref<ButtonHints>
 // }
 //
 
@@ -33,8 +34,10 @@ public func SpawnButtonHints(parentWidget: wref<inkWidget>) -> ref<ButtonHints> 
 	return this.buttonHints.GetController().SpawnFromLocal(parentWidget, n"Root").GetController() as ButtonHints;
 }
 
-@addMethod(MainMenuGameController)
-protected cb func OnPlayerAttach(playerPuppet: ref<GameObject>) -> Bool {
-	let uiSystem: ref<UISystem> = GameInstance.GetUISystem(playerPuppet.GetGame());
+@wrapMethod(SingleplayerMenuGameController)
+protected cb func OnInitialize() -> Bool {
+	wrappedMethod();
+
+	let uiSystem: ref<UISystem> = GameInstance.GetUISystem(this.GetPlayerControlledObject().GetGame());
 	uiSystem.buttonHints = this.SpawnFromExternal(this.GetRootWidget(), r"base\\gameplay\\gui\\common\\buttonhints.inkwidget", n"Root");
 }
