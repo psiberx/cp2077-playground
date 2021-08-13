@@ -25,7 +25,7 @@ public class InkPlaygroundPopup extends InGamePopupController {
 		this.m_footer.SetFluffIcon(n"fluff_triangle2");
 		this.m_footer.SetFluffText(
 			"This entire widget is 100% built from scratch using redscript.\n" +
-			"There are no resued, wrapped or extended widgets.\n" +
+			"There are no reused, wrapped or extended widgets.\n" +
 			"Powered by Base Lib prototype."
 		);
 		this.m_footer.Reparent(this);
