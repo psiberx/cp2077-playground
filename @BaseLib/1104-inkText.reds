@@ -2,7 +2,8 @@
 // inkText Imports
 // -----------------------------------------------------------------------------
 //
-// - Alignment options for content
+// - Content alignment options
+// - Justification options
 //
 // -----------------------------------------------------------------------------
 //
@@ -11,14 +12,26 @@
 //   public func SetContentHAlign(contentHAlign: inkEHorizontalAlign) -> Void
 //   public func GetContentVAlign() -> inkEVerticalAlign
 //   public func SetContentVAlign(contentVAlign: inkEVerticalAlign) -> Void
+//   public func GetJustificationType() -> textJustificationType
+//   public func SetJustificationType(justification: textJustificationType) -> Void
 // }
 //
+
+enum textJustificationType
+{
+	Left = 0,
+	Center = 1,
+	Right = 2
+}
 
 @addField(inkText)
 native let contentHAlign: inkEHorizontalAlign;
 
 @addField(inkText)
 native let contentVAlign: inkEVerticalAlign;
+
+@addField(inkText)
+native let justification: textJustificationType;
 
 @addMethod(inkText)
 public func GetContentHAlign() -> inkEHorizontalAlign {
@@ -40,6 +53,16 @@ public func SetContentVAlign(contentVAlign: inkEVerticalAlign) -> Void {
 	this.contentVAlign = contentVAlign;
 }
 
+@addMethod(inkText)
+public func GetJustificationType() -> textJustificationType {
+	return this.justification;
+}
+
+@addMethod(inkText)
+public func SetJustificationType(justification: textJustificationType) -> Void {
+	this.justification = justification;
+}
+
 //var lockFontInGame : Bool; // 0x2bc
 //var lineHeightPercentage : Float; // 0x308
 //var wrappingInfo : textWrappingInfo; // 0x328
@@ -57,13 +80,6 @@ public func SetContentVAlign(contentVAlign: inkEVerticalAlign) -> Void {
 //{
 //	Default = 0,
 //	PerCharacter = 1
-//}
-
-//enum textJustificationType
-//{
-//	Left = 0,
-//	Center = 1,
-//	Right = 2
 //}
 
 //enum textOverflowPolicy
