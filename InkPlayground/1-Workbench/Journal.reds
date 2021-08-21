@@ -37,7 +37,7 @@ public class Journal extends inkCustomController {
 		this.FadeInEntry(entry);
 		this.TrimEntries();
 
-		Log("[InkPlayground] " + entry.GetText());
+		//Log("[InkPlayground] " + text);
 	}
 
 	protected func GetMaxEntries() -> Int32 = 7

@@ -48,7 +48,7 @@ public class ButtonBasics extends Practice {
 
 	protected func InitializeButtons() -> Void {
 		let buttonLeft: ref<GenericButton> = GenericButton.Create();
-		buttonLeft.SetName(n"Left Button");
+		buttonLeft.SetName(n"LeftButton");
 		buttonLeft.SetText("Button L");
 		buttonLeft.SetFlipped(true);
 		buttonLeft.ToggleAnimations(true);
@@ -56,14 +56,14 @@ public class ButtonBasics extends Practice {
 		buttonLeft.Mount(this.m_bottom, this);
 
 		let buttonRight: ref<GenericButton> = GenericButton.Create();
-		buttonRight.SetName(n"Right Button");
+		buttonRight.SetName(n"RightButton");
 		buttonRight.SetText("Button R");
 		buttonRight.ToggleAnimations(true);
 		buttonRight.ToggleSounds(true);
 		buttonRight.Mount(this.m_bottom, this);
 
 		let buttonHub: ref<HubButton> = HubButton.Create();
-		buttonHub.SetName(n"Hub Button");
+		buttonHub.SetName(n"HubButton");
 		buttonHub.SetText("Hub Button");
 		buttonHub.SetIcon(n"ico_deck_hub");
 		buttonHub.ToggleAnimations(true);
@@ -87,7 +87,13 @@ public class ButtonBasics extends Practice {
 	protected cb func OnClick(widget: wref<inkWidget>) -> Bool {
 		let button: ref<inkCustomButtonController> = widget.GetController() as inkCustomButtonController;
 
-		this.Log("[" + NameToString(button.GetName()) + "] Event: OnClick");
+		let log: String;
+		log += "[";
+		log += NameToString(button.GetName());
+		log += "] Event: OnClick";
+		this.Log(log);
+
+		//this.Log("[" + NameToString(button.GetName()) + "] Event: OnClick");
 	}
 
 	protected cb func OnRelease(evt: ref<inkPointerEvent>) -> Bool {
@@ -97,7 +103,15 @@ public class ButtonBasics extends Practice {
 			button.SetDisabled(!button.IsDisabled());
 
 			this.PlaySound(n"MapPin", n"OnCreate");
-			this.Log("[" + NameToString(button.GetName()) + "] State: " + (button.IsDisabled() ? "Disabled" : "Enabled"));
+
+			let log: String;
+			log += "[";
+			log += NameToString(button.GetName());
+			log += "] State: ";
+			log += (button.IsDisabled() ? "Disabled" : "Enabled");
+			this.Log(log);
+
+			//this.Log("[" + NameToString(button.GetName()) + "] State: " + (button.IsDisabled() ? "Disabled" : "Enabled"));
 
 			this.UpdateHints(button);
 		};

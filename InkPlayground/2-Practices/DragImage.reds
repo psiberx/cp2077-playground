@@ -39,7 +39,7 @@ public class DragImage extends Practice {
 	protected cb func OnInitialize() -> Void {
 		let area: Vector2 = this.GetAreaSize();
 		let size: Vector2 = this.m_logo.GetSize();
-		this.m_logo.SetMargin(new inkMargin((area.X - size.X) / 2.0, (area.Y - size.Y) - 48.0, 0.0, 0.0));
+		this.m_logo.SetMargin(new inkMargin((area.X - size.X) / 2.0, 48.0, 0.0, 0.0));
 
 		let scaleAnim: ref<inkAnimScale> = new inkAnimScale();
 		scaleAnim.SetStartScale(new Vector2(0.9, 0.9));

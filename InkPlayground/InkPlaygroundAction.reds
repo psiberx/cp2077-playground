@@ -11,21 +11,21 @@ protected final func UpdateGenericExplorationInputHints(stateContext: ref<StateC
 	let isValidState: Bool = this.IsStateValidForExploration(stateContext, scriptInterface);
 
 	if isValidState || (this.IsInHighLevelState(stateContext, n"exploration") && DefaultTransition.HasRightWeaponEquipped(scriptInterface)) {
-		if !DefaultTransition.GetParameterBool(n"isInkPlaygroundPopupInputHintDisplayed", stateContext, true) {
+		if !stateContext.GetBoolParameter(n"isInkPlaygroundPopupInputHintDisplayed", true) {
 			this.ShowInkPlaygroundPopupInputHints(stateContext, scriptInterface);
 		};
 	} else {
-		if DefaultTransition.GetParameterBool(n"isInkPlaygroundPopupInputHintDisplayed", stateContext, true) {
+		if stateContext.GetBoolParameter(n"isInkPlaygroundPopupInputHintDisplayed", true) {
 			this.RemoveInkPlaygroundPopupInputHints(stateContext, scriptInterface);
 		};
 	};
 
 	if isValidState {
-		if !DefaultTransition.GetParameterBool(n"isLocomotionInputHintDisplayed", stateContext, true) {
+		if !stateContext.GetBoolParameter(n"isLocomotionInputHintDisplayed", true) {
 			this.ShowGenericExplorationInputHints(stateContext, scriptInterface);
 		};
 	} else {
-		if DefaultTransition.GetParameterBool(n"isLocomotionInputHintDisplayed", stateContext, true) {
+		if stateContext.GetBoolParameter(n"isLocomotionInputHintDisplayed", true) {
 			this.RemoveGenericExplorationInputHints(stateContext, scriptInterface);
 		};
 	};
