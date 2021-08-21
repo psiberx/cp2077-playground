@@ -87,13 +87,7 @@ public class ButtonBasics extends Practice {
 	protected cb func OnClick(widget: wref<inkWidget>) -> Bool {
 		let button: ref<inkCustomButtonController> = widget.GetController() as inkCustomButtonController;
 
-		let log: String;
-		log += "[";
-		log += NameToString(button.GetName());
-		log += "] Event: OnClick";
-		this.Log(log);
-
-		//this.Log("[" + NameToString(button.GetName()) + "] Event: OnClick");
+		this.Log("[" + NameToString(button.GetName()) + "] Event: OnClick");
 	}
 
 	protected cb func OnRelease(evt: ref<inkPointerEvent>) -> Bool {
@@ -103,15 +97,7 @@ public class ButtonBasics extends Practice {
 			button.SetDisabled(!button.IsDisabled());
 
 			this.PlaySound(n"MapPin", n"OnCreate");
-
-			let log: String;
-			log += "[";
-			log += NameToString(button.GetName());
-			log += "] State: ";
-			log += (button.IsDisabled() ? "Disabled" : "Enabled");
-			this.Log(log);
-
-			//this.Log("[" + NameToString(button.GetName()) + "] State: " + (button.IsDisabled() ? "Disabled" : "Enabled"));
+			this.Log("[" + NameToString(button.GetName()) + "] State: " + (button.IsDisabled() ? "Disabled" : "Enabled"));
 
 			this.UpdateHints(button);
 		};
