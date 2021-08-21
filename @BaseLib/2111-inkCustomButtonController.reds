@@ -13,6 +13,7 @@
 // public abstract class inkCustomButtonController extends inkMountableController {
 //   public func GetName() -> CName
 //   public func GetState() -> inkEButtonState
+//   public func GetText() -> String
 //   public func IsEnabled() -> Bool
 //   public func IsDisabled() -> Bool
 //   public func IsHovered() -> Bool
@@ -157,6 +158,10 @@ public abstract class inkCustomButtonController extends inkMountableController {
 		};
 
 		return inkEButtonState.Normal;
+	}
+
+	public func GetText() -> String {
+		return this.m_label.GetText();
 	}
 
 	public func IsEnabled() -> Bool {
