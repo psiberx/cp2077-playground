@@ -55,12 +55,12 @@ public class inkVirtualResolutionListener extends ConfigVarListener {
 		let state: ref<inkResolutionData> = this.GetCurrentState();
 
 		for target in this.m_widgets {
-			this.SetScaling(target, state.ratio);
+			this.SetScaling(target, state.GetRatio());
 		}
 	}
 
 	private func ApplyScalingToWidget(target: wref<inkWidget>) -> Void {
-		this.SetScaling(target, this.GetCurrentState().ratio);
+		this.SetScaling(target, this.GetCurrentState().GetRatio());
 	}
 
 	private func SetScaling(target: wref<inkWidget>, ratio: Float) -> Void {
@@ -88,20 +88,45 @@ public class inkVirtualResolutionListener extends ConfigVarListener {
 		let configVar: ref<ConfigVarListString> = settings.GetVar(n"/video/display", n"Resolution") as ConfigVarListString;
 		let resolution: String = configVar.GetValue();
 		let dimensions: array<String> = StrSplit(resolution, "x");
-		let ratio: Float = StringToFloat(dimensions[0]) / 3840.0;
+		let width: Float = StringToFloat(dimensions[0]);
+		let height: Float = StringToFloat(dimensions[1]);
+		let ratio: Float = height / 2160.0;
 
-		return inkResolutionData.Create(resolution, ratio);
+		return inkResolutionData.Create(resolution, new Vector2(width, height), ratio);
 	}
 }
 
 public class inkResolutionData {
-	public let resolution: String;
+	protected let resolution: String;
 
-	public let ratio: Float;
+	protected let dimensions: Vector2;
 
-	public static func Create(resolution: String, ratio: Float) -> ref<inkResolutionData> {
+	protected let ratio: Float;
+
+	public func GetResolution() -> String {
+		return this.resolution;
+	}
+
+	public func GetDimensions() -> Vector2 {
+		return this.dimensions;
+	}
+
+	public func GetWidth() -> Float {
+		return this.dimensions.X;
+	}
+
+	public func GetHeight() -> Float {
+		return this.dimensions.Y;
+	}
+
+	public func GetRatio() -> Float {
+		return this.ratio;
+	}
+
+	public static func Create(resolution: String, dimensions: Vector2, ratio: Float) -> ref<inkResolutionData> {
 		let data: ref<inkResolutionData> = new inkResolutionData();
 		data.resolution = resolution;
+		data.dimensions = dimensions;
 		data.ratio = ratio;
 
 		return data;
@@ -111,12 +136,8 @@ public class inkResolutionData {
 public class inkResolutionChangeEvent extends inkEvent {
 	protected let m_data: ref<inkResolutionData>;
 
-	public func GetResolution() -> String {
-		return this.m_data.resolution;
-	}
-
-	public func GetRatio() -> Float {
-		return this.m_data.ratio;
+	public func GetData() -> wref<inkResolutionData> {
+		return this.m_data;
 	}
 
 	public static func Create(data: ref<inkResolutionData>) -> ref<inkResolutionChangeEvent> {
