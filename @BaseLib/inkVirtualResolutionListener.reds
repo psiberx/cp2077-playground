@@ -25,7 +25,7 @@ public class inkVirtualResolutionListener extends ConfigVarListener {
 			this.m_game = game;
 
 			if this.m_original.X == 0.0 {
-				this.m_original = new Vector2(3860.0, 2160.0);
+				this.m_original = new Vector2(3840.0, 2160.0);
 			}
 
 			this.Register(n"/video/display");
@@ -43,6 +43,10 @@ public class inkVirtualResolutionListener extends ConfigVarListener {
 			this.ApplyScalingToWidgets();
 			this.SendEventToControllers();
 		}
+	}
+
+	public func SetOriginalSize(width: Float, height: Float) -> Void {
+		this.SetOriginalSize(new Vector2(width, height));
 	}
 
 	public func AddTarget(target: ref<inkWidget>) -> Void {
