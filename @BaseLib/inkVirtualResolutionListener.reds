@@ -2,29 +2,46 @@
 // inkVirtualResolutionListener
 // -----------------------------------------------------------------------------
 //
-// - Watch for screen resolution change
+// - Watch for screen resolution changes
 // - Apply scaling to widgets
 // - Notify controllers
 //
 
 public class inkVirtualResolutionListener extends ConfigVarListener {
-	private let m_initialized: Bool;
+	protected let m_initialized: Bool;
 
-	private let m_game: GameInstance;
+	protected let m_original: Vector2;
 
-	private let m_widgets: array<wref<inkWidget>>;
+	protected let m_game: GameInstance;
 
-	private let m_controllers: array<wref<inkLogicController>>;
+	protected let m_widgets: array<wref<inkWidget>>;
+
+	protected let m_gameControllers: array<wref<inkGameController>>;
+
+	protected let m_logicControllers: array<wref<inkLogicController>>;
 
 	public func Initialize(game: GameInstance) -> Void {
 		if !this.m_initialized {
 			this.m_game = game;
+
+			if this.m_original.X == 0.0 {
+				this.m_original = new Vector2(3860.0, 2160.0);
+			}
 
 			this.Register(n"/video/display");
 			this.ApplyScalingToWidgets();
 			this.SendEventToControllers();
 
 			this.m_initialized = true;
+		}
+	}
+
+	public func SetOriginalSize(size: Vector2) -> Void {
+		this.m_original = size;
+
+		if this.m_initialized {
+			this.ApplyScalingToWidgets();
+			this.SendEventToControllers();
 		}
 	}
 
@@ -36,98 +53,129 @@ public class inkVirtualResolutionListener extends ConfigVarListener {
 		}
 	}
 
-	public func AddTarget(target: ref<inkLogicController>) -> Void {
-		ArrayPush(this.m_controllers, target);
+	public func AddTarget(target: ref<inkGameController>) -> Void {
+		ArrayPush(this.m_gameControllers, target);
 
 		if this.m_initialized {
 			this.SendEventToController(target);
 		}
 	}
 
-	public cb func OnVarModified(groupPath: CName, varName: CName, varType: ConfigVarType, reason: ConfigChangeReason) -> Void {
+	public func AddTarget(target: ref<inkLogicController>) -> Void {
+		ArrayPush(this.m_logicControllers, target);
+
+		if this.m_initialized {
+			this.SendEventToController(target);
+		}
+	}
+
+	protected cb func OnVarModified(groupPath: CName, varName: CName, varType: ConfigVarType, reason: ConfigChangeReason) -> Void {
 		if Equals(groupPath, n"/video/display") && Equals(varName, n"Resolution") && Equals(reason, ConfigChangeReason.Accepted) {
 			this.ApplyScalingToWidgets();
 			this.SendEventToControllers();
 		}
 	}
 
-	private func ApplyScalingToWidgets() -> Void {
-		let state: ref<inkResolutionData> = this.GetCurrentState();
-
-		for target in this.m_widgets {
-			this.SetScaling(target, state.GetRatio());
-		}
-	}
-
-	private func ApplyScalingToWidget(target: wref<inkWidget>) -> Void {
-		this.SetScaling(target, this.GetCurrentState().GetRatio());
-	}
-
-	private func SetScaling(target: wref<inkWidget>, ratio: Float) -> Void {
-		target.SetScale(new Vector2(ratio, ratio));
-	}
-
-	private func SendEventToControllers() -> Void {
-		let state: ref<inkResolutionData> = this.GetCurrentState();
-
-		for target in this.m_controllers {
-			this.SendEvent(target, state);
-		}
-	}
-
-	private func SendEventToController(target: wref<inkLogicController>) -> Void {
-		this.SendEvent(target, this.GetCurrentState());
-	}
-
-	private func SendEvent(target: wref<inkLogicController>, data: ref<inkResolutionData>) -> Void {
-		target.QueueEvent(inkResolutionChangeEvent.Create(data));
-	}
-
-	private func GetCurrentState() -> ref<inkResolutionData> {
+	protected func GetCurrentState() -> ref<inkResolutionData> {
 		let settings: ref<UserSettings> = GameInstance.GetSettingsSystem(this.m_game);
 		let configVar: ref<ConfigVarListString> = settings.GetVar(n"/video/display", n"Resolution") as ConfigVarListString;
 		let resolution: String = configVar.GetValue();
 		let dimensions: array<String> = StrSplit(resolution, "x");
-		let width: Float = StringToFloat(dimensions[0]);
-		let height: Float = StringToFloat(dimensions[1]);
-		let ratio: Float = height / 2160.0;
+		let size: Vector2 = new Vector2(StringToFloat(dimensions[0]), StringToFloat(dimensions[1]));
+		let ratio: Vector2 = new Vector2(size.X / this.m_original.X, size.Y / this.m_original.Y);
 
-		return inkResolutionData.Create(resolution, new Vector2(width, height), ratio);
+		return inkResolutionData.Create(resolution, size, ratio);
+	}
+
+	protected func ApplyScalingToWidgets() -> Void {
+		let state: ref<inkResolutionData> = this.GetCurrentState();
+
+		for target in this.m_widgets {
+			this.SetScaling(target, state.GetScaling());
+		}
+	}
+
+	protected func ApplyScalingToWidget(target: wref<inkWidget>) -> Void {
+		this.SetScaling(target, this.GetCurrentState().GetScaling());
+	}
+
+	protected func SetScaling(target: wref<inkWidget>, ratio: Float) -> Void {
+		target.SetScale(new Vector2(ratio, ratio));
+	}
+
+	protected func SendEventToControllers() -> Void {
+		let state: ref<inkResolutionData> = this.GetCurrentState();
+
+		for target in this.m_gameControllers {
+			this.SendEvent(target, state);
+		}
+
+		for target in this.m_logicControllers {
+			this.SendEvent(target, state);
+		}
+	}
+
+	protected func SendEventToController(target: wref<inkGameController>) -> Void {
+		this.SendEvent(target, this.GetCurrentState());
+	}
+
+	protected func SendEventToController(target: wref<inkLogicController>) -> Void {
+		this.SendEvent(target, this.GetCurrentState());
+	}
+
+	protected func SendEvent(target: wref<inkGameController>, data: ref<inkResolutionData>) -> Void {
+		target.QueueEvent(inkResolutionChangeEvent.Create(data));
+	}
+
+	protected func SendEvent(target: wref<inkLogicController>, data: ref<inkResolutionData>) -> Void {
+		target.QueueEvent(inkResolutionChangeEvent.Create(data));
 	}
 }
 
 public class inkResolutionData {
-	protected let resolution: String;
+	protected let m_resolution: String;
 
-	protected let dimensions: Vector2;
+	protected let m_size: Vector2;
 
-	protected let ratio: Float;
+	protected let m_ratio: Vector2;
 
 	public func GetResolution() -> String {
-		return this.resolution;
+		return this.m_resolution;
 	}
 
-	public func GetDimensions() -> Vector2 {
-		return this.dimensions;
+	public func GetSize() -> Vector2 {
+		return this.m_size;
 	}
 
 	public func GetWidth() -> Float {
-		return this.dimensions.X;
+		return this.m_size.X;
 	}
 
 	public func GetHeight() -> Float {
-		return this.dimensions.Y;
+		return this.m_size.Y;
 	}
 
-	public func GetRatio() -> Float {
-		return this.ratio;
+	public func GetRatio() -> Vector2 {
+		return this.m_ratio;
 	}
 
-	public static func Create(resolution: String, dimensions: Vector2, ratio: Float) -> ref<inkResolutionData> {
+	public func GetHorizontalRatio() -> Float {
+		return this.m_ratio.X;
+	}
+
+	public func GetVerticalRatio() -> Float {
+		return this.m_ratio.Y;
+	}
+
+	public func GetScaling() -> Float {
+		return this.m_ratio.X < this.m_ratio.Y ? this.m_ratio.X : this.m_ratio.Y;
+	}
+
+	public static func Create(resolution: String, size: Vector2, ratio: Vector2) -> ref<inkResolutionData> {
 		let data: ref<inkResolutionData> = new inkResolutionData();
-		data.resolution = resolution;
-		data.dimensions = dimensions;
-		data.ratio = ratio;
+		data.m_resolution = resolution;
+		data.m_size = size;
+		data.m_ratio = ratio;
 
 		return data;
 	}
