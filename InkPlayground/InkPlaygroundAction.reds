@@ -6,29 +6,29 @@ protected final func UpdateGenericExplorationInputHints(stateContext: ref<StateC
 		this.RemoveGenericExplorationInputHints(stateContext, scriptInterface);
 		this.RemoveInkPlaygroundPopupInputHints(stateContext, scriptInterface);
 		return;
-	};
+	}
 
 	let isValidState: Bool = this.IsStateValidForExploration(stateContext, scriptInterface);
 
 	if isValidState || (this.IsInHighLevelState(stateContext, n"exploration") && DefaultTransition.HasRightWeaponEquipped(scriptInterface)) {
 		if !stateContext.GetBoolParameter(n"isInkPlaygroundPopupInputHintDisplayed", true) {
 			this.ShowInkPlaygroundPopupInputHints(stateContext, scriptInterface);
-		};
+		}
 	} else {
 		if stateContext.GetBoolParameter(n"isInkPlaygroundPopupInputHintDisplayed", true) {
 			this.RemoveInkPlaygroundPopupInputHints(stateContext, scriptInterface);
-		};
-	};
+		}
+	}
 
 	if isValidState {
 		if !stateContext.GetBoolParameter(n"isLocomotionInputHintDisplayed", true) {
 			this.ShowGenericExplorationInputHints(stateContext, scriptInterface);
-		};
+		}
 	} else {
 		if stateContext.GetBoolParameter(n"isLocomotionInputHintDisplayed", true) {
 			this.RemoveGenericExplorationInputHints(stateContext, scriptInterface);
-		};
-	};
+		}
+	}
 }
 
 @addMethod(InputContextTransitionEvents)
@@ -57,7 +57,7 @@ private final func RegisterInputListenersForPlayer(playerPuppet: ref<GameObject>
 
 	if playerPuppet.IsControlledByLocalPeer() {
 		playerPuppet.RegisterInputListener(this, n"Choice2_Hold");
-	};
+	}
 }
 
 @wrapMethod(gameuiInGameMenuGameController)

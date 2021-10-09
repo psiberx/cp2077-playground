@@ -1,3 +1,7 @@
+### Native Lib
+
+The lib exposes the native things that are not accessible in redscript by default.
+
 ### Base Lib
 
 Prototype of the lib for redscript.

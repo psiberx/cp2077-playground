@@ -1,8 +1,9 @@
 module InkPlayground
 import InkPlayground.Workbench.*
 import InkPlayground.Practices.*
+import BaseLib.*
 
-public class InkPlaygroundPopup extends InGamePopupController {
+public class InkPlaygroundPopup extends InGamePopup {
 	protected let m_header: ref<InGamePopupHeader>;
 
 	protected let m_footer: ref<InGamePopupFooter>;
