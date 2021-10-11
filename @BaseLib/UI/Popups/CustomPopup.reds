@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// CustomPopupController
+// CustomPopup
 // -----------------------------------------------------------------------------
 //
 // - Base implementation of custom popups
@@ -8,7 +8,7 @@
 //
 // -----------------------------------------------------------------------------
 //
-// public abstract class CustomPopupController extends inkAttachableController {
+// public abstract class CustomPopup extends inkAttachableController {
 //   public func GetName() -> CName
 //   public func GetQueueName() -> CName
 //   public func IsBlocking() -> Bool
@@ -20,7 +20,7 @@
 
 module BaseLib
 
-public abstract class CustomPopupController extends inkAttachableController {
+public abstract class CustomPopup extends inkAttachableController {
 	protected let m_notificationData: ref<inkGameNotificationData>;
 
 	protected let m_notificationToken: ref<inkGameNotificationToken>;
@@ -145,10 +145,16 @@ public abstract class CustomPopupController extends inkAttachableController {
 	}
 
 	public func Open(requester: wref<inkGameController>) -> Void {
-		GameInstance.GetUISystem(requester.GetPlayerControlledObject().GetGame()).ShowCustomPopup(this);
+		let uiSystem: ref<UISystem> = GameInstance.GetUISystem(requester.GetPlayerControlledObject().GetGame());
+		let showEvent: ref<ShowCustomPopupEvent> = ShowCustomPopupEvent.Create(this);
+
+		uiSystem.QueueEvent(showEvent);
 	}
 
 	public func Close() -> Void {
-		GameInstance.GetUISystem(this.GetGame()).HideCustomPopup(this);
+		let uiSystem: ref<UISystem> = GameInstance.GetUISystem(this.GetGame());
+		let hideEvent: ref<HideCustomPopupEvent> = HideCustomPopupEvent.Create(this);
+
+		uiSystem.QueueEvent(hideEvent);
 	}
 }

@@ -13,7 +13,7 @@
 
 module BaseLib
 
-public abstract class InGamePopup extends CustomPopupController {
+public abstract class InGamePopup extends CustomPopup {
 	protected let m_vignette: wref<inkImage>;
 
 	protected let m_container: wref<inkCompoundWidget>;

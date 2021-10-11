@@ -5,7 +5,7 @@
 module BaseLib
 
 public abstract class CustomPopupEvent extends inkCustomEvent {
-	public func GetPopup() -> ref<CustomPopupController> {
-		return this.controller as CustomPopupController;
+	public func GetPopupController() -> ref<CustomPopup> {
+		return this.controller as CustomPopup;
 	}
 }

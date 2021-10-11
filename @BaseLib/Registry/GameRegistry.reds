@@ -26,14 +26,14 @@ public class GameRegistry {
 
 	public static func Get(name: CName) -> ref<IScriptable> {
 		let container: ref<inkHashMap> = GameRegistry.GetContainer();
-		let key: Uint64 = FNV1a64.Hash(name);
+		let key: Uint64 = CRC32L.Hash(name);
 
 		return container.Get(key);
 	}
 
 	public static func Put(name: CName, instance: ref<IScriptable>) -> Void {
 		let container: ref<inkHashMap> = GameRegistry.GetContainer();
-		let key: Uint64 = FNV1a64.Hash(name);
+		let key: Uint64 = CRC32L.Hash(name);
 
 		if container.KeyExist(key) {
 			container.Set(key, instance);
@@ -48,7 +48,7 @@ public class GameRegistry {
 
 	public static func Remove(name: CName) -> Void {
 		let container: ref<inkHashMap> = GameRegistry.GetContainer();
-		let key: Uint64 = FNV1a64.Hash(name);
+		let key: Uint64 = CRC32L.Hash(name);
 
 		if container.KeyExist(key) {
 			container.Remove(key);
