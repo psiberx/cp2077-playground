@@ -67,21 +67,21 @@ public class LeaningHandler {
 		this.ResetState();
 	}
 
-    public func ResetState() -> Bool {
-    	this.m_currentLeaning = coverLeanDirection.Top;
-    	this.m_lastLeaning = coverLeanDirection.Top;
-    }
+	public func ResetState() -> Bool {
+		this.m_currentLeaning = coverLeanDirection.Top;
+		this.m_lastLeaning = coverLeanDirection.Top;
+	}
 
-    public func IsLeaning() -> Bool {
-    	return !Equals(this.m_currentLeaning, coverLeanDirection.Top);
-    }
+	public func IsLeaning() -> Bool {
+		return !Equals(this.m_currentLeaning, coverLeanDirection.Top);
+	}
 
-    public func WasLeaning() -> Bool {
-    	return !Equals(this.m_lastLeaning, coverLeanDirection.Top);
-    }
+	public func WasLeaning() -> Bool {
+		return !Equals(this.m_lastLeaning, coverLeanDirection.Top);
+	}
 
-    public func LeanTo(leanDirection: coverLeanDirection) -> Bool {
-    	if !this.m_isAiming {
+	public func LeanTo(leanDirection: coverLeanDirection) -> Bool {
+		if !this.m_isAiming {
 			return false;
 		}
 
@@ -107,15 +107,15 @@ public class LeaningHandler {
 		this.m_lastLeaning = coverLeanDirection.Top;
 
 		return true;
-    }
+	}
 
-    public func LeanLeft() -> Bool {
-    	return this.LeanTo(coverLeanDirection.Left);
-    }
+	public func LeanLeft() -> Bool {
+		return this.LeanTo(coverLeanDirection.Left);
+	}
 
-    public func LeanRight() -> Bool {
-    	return this.LeanTo(coverLeanDirection.Right);
-    }
+	public func LeanRight() -> Bool {
+		return this.LeanTo(coverLeanDirection.Right);
+	}
 
 	protected cb func OnPlayerAttached(playerPuppet: ref<GameObject>) -> Void {
 		let pmsBlackboard: ref<IBlackboard> = this.m_player.GetPlayerStateMachineBlackboard();
@@ -152,7 +152,7 @@ public class LeaningHandler {
 		this.m_isInCover = state;
 	}
 
-    protected cb func OnAction(action: ListenerAction, consumer: ListenerActionConsumer) -> Void {
+	protected cb func OnAction(action: ListenerAction, consumer: ListenerActionConsumer) -> Void {
 		if ListenerAction.IsButtonJustPressed(action) {
 			let leanDirection = ListenerAction.IsAction(action, n"LeanLeft")
 				? coverLeanDirection.Left
@@ -179,7 +179,7 @@ public class LeaningHandler {
 				}
 			}
 		}
-    }
+	}
 }
 
 public class DelayedLeanToCallback extends DelayCallback {
@@ -198,19 +198,19 @@ private let m_leaningHandler: ref<LeaningHandler>;
 @wrapMethod(PlayerPuppet)
 protected cb func OnGameAttached() -> Bool {
 	if this.IsControlledByLocalPeer() || IsHost() {
-    	this.m_leaningHandler = new LeaningHandler();
-    	this.m_leaningHandler.Register(this);
+		this.m_leaningHandler = new LeaningHandler();
+		this.m_leaningHandler.Register(this);
 	}
 
-    wrappedMethod();
+	wrappedMethod();
 }
 
 @wrapMethod(PlayerPuppet)
 protected cb func OnDetach() -> Bool {
-    wrappedMethod();
+	wrappedMethod();
 
 	if this.IsControlledByLocalPeer() || IsHost() {
 		this.m_leaningHandler.Unregister();
 		this.m_leaningHandler = null;
-    }
+	}
 }
