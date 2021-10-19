@@ -1,10 +1,10 @@
 // -----------------------------------------------------------------------------
-// GenericButton
+// BaseButton
 // -----------------------------------------------------------------------------
 
 module BaseLib
 
-public class GenericButton extends CustomButton {
+public class BaseButton extends CustomButton {
 	protected let m_isFlipped: Bool;
 
 	protected let m_bg: wref<inkImage>;
@@ -169,8 +169,8 @@ public class GenericButton extends CustomButton {
 		this.ApplyFlippedState();
 	}
 
-	public static func Create() -> ref<GenericButton> {
-		let instance: ref<GenericButton> = new GenericButton();
+	public static func Create() -> ref<BaseButton> {
+		let instance: ref<BaseButton> = new BaseButton();
 		instance.Build();
 
 		return instance;

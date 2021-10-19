@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// VirtualResolutionListener
+// VirtualResolutionWatcher
 // -----------------------------------------------------------------------------
 //
 // - Watch for screen resolution changes
@@ -9,7 +9,7 @@
 
 module BaseLib
 
-public class VirtualResolutionListener extends ConfigVarListener {
+public class VirtualResolutionWatcher extends ConfigVarListener {
 	protected let m_initialized: Bool;
 
 	protected let m_window: Vector2;

@@ -48,7 +48,7 @@ public class ButtonBasics extends Practice {
 	}
 
 	protected func InitializeButtons() -> Void {
-		let buttonLeft: ref<GenericButton> = GenericButton.Create();
+		let buttonLeft: ref<BaseButton> = BaseButton.Create();
 		buttonLeft.SetName(n"LeftButton");
 		buttonLeft.SetText("Button L");
 		buttonLeft.SetFlipped(true);
@@ -56,7 +56,7 @@ public class ButtonBasics extends Practice {
 		buttonLeft.ToggleSounds(true);
 		buttonLeft.Mount(this.m_bottom, this);
 
-		let buttonRight: ref<GenericButton> = GenericButton.Create();
+		let buttonRight: ref<BaseButton> = BaseButton.Create();
 		buttonRight.SetName(n"RightButton");
 		buttonRight.SetText("Button R");
 		buttonRight.ToggleAnimations(true);

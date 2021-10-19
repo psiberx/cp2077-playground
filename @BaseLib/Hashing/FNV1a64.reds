@@ -13,9 +13,11 @@ public abstract class FNV1a64 {
 		let hash: Uint64 = Cast(-3750763034362895579l); // StringToUint64("14695981039346656037")
 		let prime: Uint64 = Cast(1099511628211l);
 
-		let chars: ref<inkStringMap> = FNV1a64.AsciiCharCodes();
 		let length: Int32 = StrLen(str);
 		let offset: Int32 = 0;
+
+		// Because there is no function for getting the char code
+		let chars: ref<inkStringMap> = FNV1a64.AsciiCharCodes();
 
 		while offset < length {
 			hash = hash ^ chars.Get(StrMid(str, offset, 1));
@@ -31,12 +33,18 @@ public abstract class FNV1a64 {
 	}
 
 	private static func AsciiCharCodes() -> ref<inkStringMap> {
-		let map: ref<inkStringMap> = new inkStringMap();
+		let map: ref<inkStringMap> = GameRegistry.Get(n"AsciiCharCodes") as inkStringMap;
 
-		let code: Int32;
-		while code <= 255 {
-			map.Insert(StrChar(code), Cast(code));
-			code += 1;
+		if !IsDefined(map) {
+			map = new inkStringMap();
+
+			let code: Int32;
+			while code <= 255 {
+				map.Insert(StrChar(code), Cast(code));
+				code += 1;
+			}
+
+			GameRegistry.Put(n"AsciiCharCodes", map);
 		}
 
 		return map;
