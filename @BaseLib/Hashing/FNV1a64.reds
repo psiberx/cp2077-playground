@@ -31,25 +31,14 @@ public abstract class FNV1a64 {
 	}
 
 	private static func AsciiCharCodes() -> ref<inkStringMap> {
-		let map: ref<inkStringMap> = GetAllBlackboardDefs().DebugData.AsciiCharCodes;
+		let map: ref<inkStringMap> = new inkStringMap();
 
-		if !IsDefined(map) {
-			map = new inkStringMap();
-
-			let code: Int32;
-			while code <= 255 {
-				map.Insert(StrChar(code), Cast(code));
-				code += 1;
-			}
-
-			GetAllBlackboardDefs().DebugData.AsciiCharCodes = map;
+		let code: Int32;
+		while code <= 255 {
+			map.Insert(StrChar(code), Cast(code));
+			code += 1;
 		}
 
 		return map;
 	}
 }
-
-// -----------------------------------------------------------------------------
-
-@addField(DebugDataDef)
-private let AsciiCharCodes: ref<inkStringMap>;
