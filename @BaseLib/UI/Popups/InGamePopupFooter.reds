@@ -11,7 +11,7 @@ public class InGamePopupFooter extends inkCustomController {
 
 	protected let m_inputHolder: wref<inkCompoundWidget>;
 
-	protected let m_buttonHints: wref<ButtonHints>;
+	protected let m_buttonHints: wref<ButtonHintsEx>;
 
 	protected cb func OnCreate() -> Void {
 		let footer: ref<inkCanvas> = new inkCanvas();
@@ -75,14 +75,12 @@ public class InGamePopupFooter extends inkCustomController {
 	}
 
 	protected cb func OnInitialize() -> Void {
-		let uiSystem: ref<UISystem> = GameInstance.GetUISystem(this.GetGame());
-
-		this.m_buttonHints = uiSystem.SpawnButtonHints(this.m_inputHolder);
-		this.m_buttonHints.OverrideStyle(n"popup");
+		this.m_buttonHints = GameUI.GetButtonHintsManager().SpawnButtonHints(this.m_inputHolder);
+		this.m_buttonHints.SetStyle(n"popup");
 		this.m_buttonHints.AddButtonHint(n"cancel", "LocKey#22195");
 	}
 
-	public func GetHints() -> wref<ButtonHints> {
+	public func GetHints() -> wref<ButtonHintsEx> {
 		return this.m_buttonHints;
 	}
 

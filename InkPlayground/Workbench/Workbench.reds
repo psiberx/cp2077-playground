@@ -8,7 +8,7 @@ public class Workbench extends inkCustomController {
 
 	protected let m_journal: wref<Journal>;
 
-	protected let m_buttonHints: wref<ButtonHints>;
+	protected let m_buttonHints: wref<ButtonHintsEx>;
 
 	protected let m_areaSize: Vector2;
 
@@ -72,7 +72,7 @@ public class Workbench extends inkCustomController {
 		return this.m_journal;
 	}
 
-	public func GetHints() -> wref<ButtonHints> {
+	public func GetHints() -> wref<ButtonHintsEx> {
 		return this.m_buttonHints;
 	}
 
@@ -84,7 +84,7 @@ public class Workbench extends inkCustomController {
 		this.m_areaSize = areaSize;
 	}
 
-	public func SetHints(buttonHints: wref<ButtonHints>) -> Void {
+	public func SetHints(buttonHints: wref<ButtonHintsEx>) -> Void {
 		this.m_buttonHints = buttonHints;
 	}
 

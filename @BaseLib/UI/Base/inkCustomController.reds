@@ -38,11 +38,11 @@ public abstract class inkCustomController extends inkLogicController {
 
 	private let m_isInitialized: Bool;
 
-	private let m_rootWidget: ref<inkWidget>;
-
-	private let m_containerWidget: wref<inkCompoundWidget>;
-
 	private let m_gameController: wref<inkGameController>;
+
+	protected let m_rootWidget: ref<inkWidget>;
+
+	protected let m_containerWidget: wref<inkCompoundWidget>;
 
 	protected func IsInitialized() -> Bool {
 		return this.m_isInitialized;
