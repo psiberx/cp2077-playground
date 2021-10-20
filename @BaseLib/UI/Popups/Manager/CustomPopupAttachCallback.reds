@@ -5,16 +5,19 @@
 module BaseLib
 
 public class CustomPopupAttachCallback extends DelayCallback {
-	protected let request: ref<CustomPopupAttachRequest>;
+	protected let m_manager: ref<CustomPopupManager>;
+
+	protected let m_request: ref<CustomPopupAttachRequest>;
 
 	public func Call() -> Void {
-		CustomPopupManager.GetInstance().AttachPopup(this.request);
+		this.m_manager.AttachPopup(this.m_request);
 	}
 
-	public static func Create(request: ref<CustomPopupAttachRequest>) -> ref<CustomPopupAttachCallback> {
-		let callback: ref<CustomPopupAttachCallback> = new CustomPopupAttachCallback();
-		callback.request = request;
+	public static func Create(manager: ref<CustomPopupManager>, request: ref<CustomPopupAttachRequest>) -> ref<CustomPopupAttachCallback> {
+		let self = new CustomPopupAttachCallback();
+		self.m_manager = manager;
+		self.m_request = request;
 
-		return callback;
+		return self;
 	}
 }

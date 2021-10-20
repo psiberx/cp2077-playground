@@ -6,6 +6,7 @@
 //   public func IsInitialized() -> Bool
 //   public func Initialize(buttonHints: ref<inkWidget>) -> Void
 //   public func SpawnButtonHints(parentWidget: wref<inkWidget>) -> ref<ButtonHintsEx>
+//   public static func GetInstance(game: GameInstance) -> ref<ButtonHintsManager>
 //   public static func GetInstance() -> ref<ButtonHintsManager>
 // }
 //
@@ -29,15 +30,32 @@ public class ButtonHintsManager extends IButtonHintsManager {
 		);
 	}
 
-	public static func GetInstance() -> ref<ButtonHintsManager> {
-		let instance = GameRegistry.Get(n"BaseLib.ButtonHintsManager") as ButtonHintsManager;
+	public static func GetInstance(game: GameInstance) -> ref<ButtonHintsManager> {
+		let registry: ref<RegistrySystem> = RegistrySystem.GetInstance(game);
+		let instance: ref<ButtonHintsManager> = registry.Get(n"BaseLib.ButtonHintsManager") as ButtonHintsManager;
 
 		if !IsDefined(instance) {
 			instance = new ButtonHintsManager();
-			GameRegistry.Put(instance);
+			registry.Put(instance);
 		}
 
 		return instance;
+	}
+
+	public static func GetInstance() -> ref<ButtonHintsManager> {
+		return ButtonHintsManager.GetInstance(GetGameInstance());
+	}
+
+	public static func InitializeFromController(controller: ref<inkGameController>) -> Void {
+		let rootWidget: ref<inkCompoundWidget> = controller.GetRootCompoundWidget();
+		let buttonHints: ref<inkWidget> = controller.SpawnFromExternal(rootWidget, r"base\\gameplay\\gui\\common\\buttonhints.inkwidget", n"Root");
+
+		let game: GameInstance = controller.GetPlayerControlledObject().GetGame();
+		let instance: ref<ButtonHintsManager> = ButtonHintsManager.GetInstance(game);
+
+		instance.Initialize(buttonHints);
+
+		rootWidget.RemoveChild(buttonHints);
 	}
 }
 
@@ -47,7 +65,12 @@ public class ButtonHintsManager extends IButtonHintsManager {
 protected cb func OnInitialize() -> Bool {
 	wrappedMethod();
 
-	ButtonHintsManager.GetInstance().Initialize(
-		this.SpawnFromExternal(this.GetRootWidget(), r"base\\gameplay\\gui\\common\\buttonhints.inkwidget", n"Root")
-	);
+	ButtonHintsManager.InitializeFromController(this);
+}
+
+@wrapMethod(DpadWheelGameController)
+protected cb func OnInitialize() -> Bool {
+	wrappedMethod();
+
+	ButtonHintsManager.InitializeFromController(this);
 }

@@ -3,7 +3,6 @@
 // -----------------------------------------------------------------------------
 //
 // - Global object registry / singleton container
-// - Global game instance resolver
 //
 // -----------------------------------------------------------------------------
 //
@@ -13,6 +12,7 @@
 //   public func Put(instance: ref<IScriptable>) -> Void
 //   public func Remove(name: CName) -> Void
 //   public func Remove(instance: ref<IScriptable>) -> Void
+//   public static func GetInstance(game: GameInstance) -> ref<RegistrySystem>
 //   public static func GetInstance() -> ref<RegistrySystem>
 // }
 //
@@ -58,7 +58,11 @@ public class RegistrySystem extends ScriptableSystem {
 		this.Remove(instance.GetClassName());
 	}
 
+	public static func GetInstance(game: GameInstance) -> ref<RegistrySystem> {
+		return GameInstance.GetScriptableSystemsContainer(game).Get(n"BaseLib.RegistrySystem") as RegistrySystem;
+	}
+
 	public static func GetInstance() -> ref<RegistrySystem> {
-		return GameInstance.GetScriptableSystemsContainer(GetGameInstance()).Get(n"BaseLib.RegistrySystem") as RegistrySystem;
+		return RegistrySystem.GetInstance(GetGameInstance());
 	}
 }

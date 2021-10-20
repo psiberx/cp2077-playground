@@ -8,6 +8,7 @@
 //   public func ShowPopup(popupController: ref<CustomPopup>) -> Void
 //   public func HidePopup(popupController: ref<CustomPopup>) -> Void
 //   public func AttachPopup(request: ref<CustomPopupAttachRequest>) -> Void
+//   public static func GetInstance(game: GameInstance) -> ref<CustomPopupManager>
 //   public static func GetInstance() -> ref<CustomPopupManager>
 // }
 //
@@ -97,7 +98,7 @@ public class CustomPopupManager extends ICustomPopupManager {
 	protected func QueueAttachRequest(request: ref<CustomPopupAttachRequest>) -> Void {
 		let game: GameInstance = this.m_gameController.GetPlayerControlledObject().GetGame();
 
-		GameInstance.GetDelaySystem(game).DelayCallback(CustomPopupAttachCallback.Create(request), 0);
+		GameInstance.GetDelaySystem(game).DelayCallback(CustomPopupAttachCallback.Create(this, request), 0);
 	}
 
 	protected cb func OnNotificationClosed(data: ref<inkGameNotificationData>) -> Bool {
@@ -113,15 +114,20 @@ public class CustomPopupManager extends ICustomPopupManager {
 		}
 	}
 
-	public static func GetInstance() -> ref<CustomPopupManager> {
-		let instance = GameRegistry.Get(n"BaseLib.CustomPopupManager") as CustomPopupManager;
+	public static func GetInstance(game: GameInstance) -> ref<CustomPopupManager> {
+		let registry: ref<RegistrySystem> = RegistrySystem.GetInstance(game);
+		let instance: ref<CustomPopupManager> = registry.Get(n"BaseLib.CustomPopupManager") as CustomPopupManager;
 
 		if !IsDefined(instance) {
 			instance = new CustomPopupManager();
-			GameRegistry.Put(instance);
+			registry.Put(instance);
 		}
 
 		return instance;
+	}
+
+	public static func GetInstance() -> ref<CustomPopupManager> {
+		return CustomPopupManager.GetInstance(GetGameInstance());
 	}
 }
 
@@ -130,15 +136,16 @@ public class CustomPopupManager extends ICustomPopupManager {
 @wrapMethod(PopupsManager)
 protected cb func OnPlayerAttach(playerPuppet: ref<GameObject>) -> Bool {
 	wrappedMethod(playerPuppet);
-	CustomPopupManager.GetInstance().Initialize(this);
+
+	CustomPopupManager.GetInstance(this.GetPlayerControlledObject().GetGame()).Initialize(this);
 }
 
 @addMethod(PopupsManager)
 protected cb func OnShowCustomPopup(evt: ref<ShowCustomPopupEvent>) -> Bool {
-	CustomPopupManager.GetInstance().ShowPopup(evt.GetPopupController());
+	CustomPopupManager.GetInstance(this.GetPlayerControlledObject().GetGame()).ShowPopup(evt.GetPopupController());
 }
 
 @addMethod(PopupsManager)
 protected cb func OnHideCustomPopup(evt: ref<HideCustomPopupEvent>) -> Bool {
-	CustomPopupManager.GetInstance().HidePopup(evt.GetPopupController());
+	CustomPopupManager.GetInstance(this.GetPlayerControlledObject().GetGame()).HidePopup(evt.GetPopupController());
 }

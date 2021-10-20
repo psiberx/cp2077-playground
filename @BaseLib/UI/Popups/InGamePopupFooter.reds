@@ -75,7 +75,7 @@ public class InGamePopupFooter extends inkCustomController {
 	}
 
 	protected cb func OnInitialize() -> Void {
-		this.m_buttonHints = GameUI.GetButtonHintsManager().SpawnButtonHints(this.m_inputHolder);
+		this.m_buttonHints = ButtonHintsManager.GetInstance(this.GetGame()).SpawnButtonHints(this.m_inputHolder);
 		this.m_buttonHints.SetStyle(n"popup");
 		this.m_buttonHints.AddButtonHint(n"cancel", "LocKey#22195");
 	}
