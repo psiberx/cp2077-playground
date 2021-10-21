@@ -151,7 +151,13 @@ public class LocalizationSystem extends ScriptableSystem {
 			return (translations.Get(hash) as LocalizationEntry).GetVariant(this.m_playerGender);
 		}
 
-		return GetLocalizedText(key);
+		let fallback: String = GetLocalizedText(key);
+
+		if StrLen(fallback) > 0 {
+			return fallback;
+		}
+
+		return key;
 	}
 
 	public func GetText(key: String) -> String {
