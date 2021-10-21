@@ -1,19 +1,14 @@
-### Native Lib
-
-The lib exposes the native things that are not accessible in redscript by default.
-
 ### Base Lib
 
 Prototype of the lib for redscript.
 
 #### Features
 
-- Hashing
-  * CRC32L (Used by TweakDB)
-  * FNV1a64 (Experimental)
 - Global registry
   * Store and retrieve objects by name
-  * Access game instance anywhere
+- Localization
+  * Translate the mod based on the game language settings
+  * Vary the translation based on the interface, subtitles, voice language and player gender  
 - UI: Custom widgets
   * Create composite widgets with logic
 - UI: Buttons
@@ -22,9 +17,13 @@ Prototype of the lib for redscript.
 - UI: Resolution watcher
   * Apply scaling to widgets
   * Make adaptive layouts
-- Localization [WIP]
+- Hashing
+  * TweakDB
+  * FNV1a64 (Experimental and ineffective)
 - Delay System
   * Schedule events for UI controllers
+- Native Extensions
+  * Access native things that are not accessible by default
 
 #### Usage
 
@@ -39,7 +38,7 @@ You can add the lib as a dependency.
 You can include a full or partial copy of the lib with only features you need in your mod. 
 
 To prevent conflicts with other mods and / or shared lib, you must give your copy a unique namespace.
-For example, you can simply add your mod's namespace: `BaseLib` → `MyMod.BaseLib`. 
+For example, you can simply use your mod's namespace or prepend with it: `BaseLib` → `MyMod.BaseLib`. 
 
 ### Ink Playground
 
