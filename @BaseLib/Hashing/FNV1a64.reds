@@ -9,7 +9,7 @@
 module BaseLib.Hashing
 
 public abstract class FNV1a64 {
-	public static func Hash(str: String) -> Uint64 {
+	public static func Compute(str: String) -> Uint64 {
 		let hash: Uint64 = Cast(-3750763034362895579l); // StringToUint64("14695981039346656037")
 		let prime: Uint64 = Cast(1099511628211l);
 
@@ -28,8 +28,8 @@ public abstract class FNV1a64 {
 		return hash;
 	}
 
-	public static func Hash(name: CName) -> Uint64 {
-		return FNV1a64.Hash(NameToString(name));
+	public static func Compute(name: CName) -> Uint64 {
+		return FNV1a64.Compute(NameToString(name));
 	}
 
 	private static func AsciiCharCodes() -> ref<inkStringMap> {

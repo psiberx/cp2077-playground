@@ -3,7 +3,7 @@
 // -----------------------------------------------------------------------------
 //
 // public class LocalizationSystem extends ScriptableSystem {
-//   public func GetScreenLanguage() -> CName
+//   public func GetInterfaceLanguage() -> CName
 //   public func GetSubtitleLanguage() -> CName
 //   public func GetVoiceLanguage() -> CName
 //   public func GetPlayerGender() -> PlayerGender
@@ -17,7 +17,7 @@
 module BaseLib.Localization
 
 public class LocalizationSystem extends ScriptableSystem {
-	private let m_screenLanguage: CName;
+	private let m_interfaceLanguage: CName;
 
 	private let m_subtitleLanguage: CName;
 
@@ -27,9 +27,9 @@ public class LocalizationSystem extends ScriptableSystem {
 
 	private let m_providers: array<ref<ModLocalizationProvider>>;
 
-	private let m_screenTranslationLanguage: CName;
+	private let m_interfaceTranslationLanguage: CName;
 
-	private let m_screenTranslationData: ref<inkHashMap>;
+	private let m_interfaceTranslationData: ref<inkHashMap>;
 
 	private let m_subtitleTranslationLanguage: CName;
 
@@ -38,7 +38,7 @@ public class LocalizationSystem extends ScriptableSystem {
 	private let m_settingsWatcher: ref<LanguageSettingsWatcher>;
 
 	private func OnAttach() -> Void {
-		this.m_screenTranslationData = new inkHashMap();
+		this.m_interfaceTranslationData = new inkHashMap();
 		this.m_subtitleTranslationData = new inkHashMap();
 
 		this.m_settingsWatcher = new LanguageSettingsWatcher();
@@ -75,7 +75,7 @@ public class LocalizationSystem extends ScriptableSystem {
 	private func UpdateLocale() -> Void {
 		let settings: ref<UserSettings> = GameInstance.GetSettingsSystem(this.GetGameInstance());
 
-		this.m_screenLanguage = (settings.GetVar(n"/language", n"OnScreen") as ConfigVarListName).GetValue();
+		this.m_interfaceLanguage = (settings.GetVar(n"/language", n"OnScreen") as ConfigVarListName).GetValue();
 		this.m_subtitleLanguage = (settings.GetVar(n"/language", n"Subtitles") as ConfigVarListName).GetValue();
 		this.m_voiceLanguage = (settings.GetVar(n"/language", n"VoiceOver") as ConfigVarListName).GetValue();
 	}
@@ -87,9 +87,9 @@ public class LocalizationSystem extends ScriptableSystem {
 	}
 
 	private func UpdateTranslations() -> Void {
-		if NotEquals(this.m_screenTranslationLanguage, this.m_screenLanguage) {
-			this.CollectTranslationData(this.m_screenTranslationData, EntryType.Screen, this.m_screenLanguage);
-			this.m_screenTranslationLanguage = this.m_screenLanguage;
+		if NotEquals(this.m_interfaceTranslationLanguage, this.m_interfaceLanguage) {
+			this.CollectTranslationData(this.m_interfaceTranslationData, EntryType.Interface, this.m_interfaceLanguage);
+			this.m_interfaceTranslationLanguage = this.m_interfaceLanguage;
 		}
 
 		if NotEquals(this.m_subtitleTranslationLanguage, this.m_subtitleLanguage) {
@@ -99,8 +99,8 @@ public class LocalizationSystem extends ScriptableSystem {
 	}
 
 	private func MergeTranslations(provider: ref<ModLocalizationProvider>) -> Void {
-		if NotEquals(this.m_screenTranslationLanguage, n"") {
-			this.FillTranslationData(this.m_screenTranslationData, provider, EntryType.Screen, this.m_screenTranslationLanguage);
+		if NotEquals(this.m_interfaceTranslationLanguage, n"") {
+			this.FillTranslationData(this.m_interfaceTranslationData, provider, EntryType.Interface, this.m_interfaceTranslationLanguage);
 		}
 
 		if NotEquals(this.m_subtitleTranslationLanguage, n"") {
@@ -109,7 +109,7 @@ public class LocalizationSystem extends ScriptableSystem {
 	}
 
 	private func InvalidateTranslations() -> Void {
-		this.m_screenTranslationLanguage = n"";
+		this.m_interfaceTranslationLanguage = n"";
 		this.m_subtitleTranslationLanguage = n"";
 	}
 
@@ -161,23 +161,23 @@ public class LocalizationSystem extends ScriptableSystem {
 	}
 
 	public func GetText(key: String) -> String {
-		return this.GetTranslationFrom(this.m_screenTranslationData, key);
+		return this.GetTranslationFrom(this.m_interfaceTranslationData, key);
 	}
 
 	public func GetSubtitle(key: String) -> String {
 		return this.GetTranslationFrom(this.m_subtitleTranslationData, key);
 	}
 
-	public func GetScreenLanguage() -> CName {
-		return this.m_screenLanguage;
+	public func GetInterfaceLanguage() -> CName {
+		return this.m_interfaceLanguage;
 	}
 
 	public func GetSubtitleLanguage() -> CName {
-		return this.m_screenLanguage;
+		return this.m_interfaceLanguage;
 	}
 
 	public func GetVoiceLanguage() -> CName {
-		return this.m_screenLanguage;
+		return this.m_interfaceLanguage;
 	}
 
 	public func GetPlayerGender() -> PlayerGender {

@@ -5,6 +5,6 @@
 module BaseLib.Localization
 
 enum EntryType {
-	Screen = 0,
+	Interface = 0,
 	Subtitle = 1,
 }

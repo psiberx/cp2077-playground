@@ -17,7 +17,7 @@
 //
 
 module BaseLib.Registry
-import BaseLib.Hashing.CRC32L
+import BaseLib.Hashing.TweakHash
 
 public class RegistrySystem extends ScriptableSystem {
 	private let m_container: ref<inkHashMap>;
@@ -27,13 +27,13 @@ public class RegistrySystem extends ScriptableSystem {
 	}
 
 	public func Get(name: CName) -> ref<IScriptable> {
-		let key: Uint64 = CRC32L.Hash(name);
+		let key: Uint64 = TweakHash.Compute(name);
 
 		return this.m_container.Get(key);
 	}
 
 	public func Put(name: CName, instance: ref<IScriptable>) -> Void {
-		let key: Uint64 = CRC32L.Hash(name);
+		let key: Uint64 = TweakHash.Compute(name);
 
 		if this.m_container.KeyExist(key) {
 			this.m_container.Set(key, instance);
@@ -47,7 +47,7 @@ public class RegistrySystem extends ScriptableSystem {
 	}
 
 	public func Remove(name: CName) -> Void {
-		let key: Uint64 = CRC32L.Hash(name);
+		let key: Uint64 = TweakHash.Compute(name);
 
 		if this.m_container.KeyExist(key) {
 			this.m_container.Remove(key);

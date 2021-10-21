@@ -3,7 +3,7 @@
 // -----------------------------------------------------------------------------
 //
 // Purpose:
-// - Define translations (screen texts, subtitles)
+// - Define translations (texts, subtitles)
 //
 // -----------------------------------------------------------------------------
 //
@@ -24,18 +24,18 @@
 module BaseLib.Localization
 
 public abstract class ModLocalizationPackage {
-	private let m_screenEntries: ref<inkHashMap>;
+	private let m_interfaceEntries: ref<inkHashMap>;
 
 	private let m_subtitleEntries: ref<inkHashMap>;
 
 	public func GetEntries(type: EntryType) -> wref<inkHashMap> {
 		switch type {
-			case EntryType.Screen:
-				if !IsDefined(this.m_screenEntries) {
-					this.m_screenEntries = new inkHashMap();
+			case EntryType.Interface:
+				if !IsDefined(this.m_interfaceEntries) {
+					this.m_interfaceEntries = new inkHashMap();
 					this.DefineTexts();
 				}
-				return this.m_screenEntries;
+				return this.m_interfaceEntries;
 
 			case EntryType.Subtitle:
 				if !IsDefined(this.m_subtitleEntries) {
@@ -54,12 +54,12 @@ public abstract class ModLocalizationPackage {
 
 	protected func Text(key: String, value: String) -> Void {
 		let hash: Uint64 = LocalizationEntry.Hash(key);
-		let entry: ref<GenderNeutralEntry> = this.m_screenEntries.Get(hash) as GenderNeutralEntry;
+		let entry: ref<GenderNeutralEntry> = this.m_interfaceEntries.Get(hash) as GenderNeutralEntry;
 
 		if !IsDefined(entry) {
 			entry = GenderNeutralEntry.Create(key);
 
-			this.m_screenEntries.Insert(hash, entry);
+			this.m_interfaceEntries.Insert(hash, entry);
 		}
 
 		entry.SetVariant(PlayerGender.Default, value);
@@ -67,12 +67,12 @@ public abstract class ModLocalizationPackage {
 
 	protected func Text(key: String, valueF: String, valueM: String) -> Void {
 		let hash: Uint64 = LocalizationEntry.Hash(key);
-		let entry: ref<GenderSensitiveEntry> = this.m_screenEntries.Get(hash) as GenderSensitiveEntry;
+		let entry: ref<GenderSensitiveEntry> = this.m_interfaceEntries.Get(hash) as GenderSensitiveEntry;
 
 		if !IsDefined(entry) {
 			entry = GenderSensitiveEntry.Create(key);
 
-			this.m_screenEntries.Insert(hash, entry);
+			this.m_interfaceEntries.Insert(hash, entry);
 		}
 
 		entry.SetVariant(PlayerGender.Female, valueF);
@@ -81,12 +81,12 @@ public abstract class ModLocalizationPackage {
 
 	protected func TextF(key: String, value: String) -> Void {
 		let hash: Uint64 = LocalizationEntry.Hash(key);
-		let entry: ref<GenderSensitiveEntry> = this.m_screenEntries.Get(hash) as GenderSensitiveEntry;
+		let entry: ref<GenderSensitiveEntry> = this.m_interfaceEntries.Get(hash) as GenderSensitiveEntry;
 
 		if !IsDefined(entry) {
 			entry = GenderSensitiveEntry.Create(key);
 
-			this.m_screenEntries.Insert(hash, entry);
+			this.m_interfaceEntries.Insert(hash, entry);
 		}
 
 		entry.SetVariant(PlayerGender.Female, value);
@@ -94,12 +94,12 @@ public abstract class ModLocalizationPackage {
 
 	protected func TextM(key: String, value: String) -> Void {
 		let hash: Uint64 = LocalizationEntry.Hash(key);
-		let entry: ref<GenderSensitiveEntry> = this.m_screenEntries.Get(hash) as GenderSensitiveEntry;
+		let entry: ref<GenderSensitiveEntry> = this.m_interfaceEntries.Get(hash) as GenderSensitiveEntry;
 
 		if !IsDefined(entry) {
 			entry = GenderSensitiveEntry.Create(key);
 
-			this.m_screenEntries.Insert(hash, entry);
+			this.m_interfaceEntries.Insert(hash, entry);
 		}
 
 		entry.SetVariant(PlayerGender.Male, value);
