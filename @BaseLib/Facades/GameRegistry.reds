@@ -1,20 +1,12 @@
 // -----------------------------------------------------------------------------
-// GameRegistry Static Helper
+// Registry Static Helper
 // -----------------------------------------------------------------------------
-//
-// public class GameRegistry {
-//   public static func GetGame() -> GameInstance
-//   public static func Get(name: CName) -> ref<IScriptable>
-//   public static func Put(name: CName, instance: ref<IScriptable>) -> Void
-//   public static func Put(instance: ref<IScriptable>) -> Void
-//   public static func Remove(name: CName) -> Void
-//   public static func Remove(instance: ref<IScriptable>) -> Void
-// }
-//
 
-module BaseLib
+/*
+module BaseLib.Facades
+import BaseLib.Registry.RegistrySystem
 
-public class GameRegistry {
+public abstract class GameRegistry {
 	public static func GetGame() -> GameInstance {
 		return RegistrySystem.GetInstance().GetGameInstance();
 	}
@@ -39,3 +31,4 @@ public class GameRegistry {
 		RegistrySystem.GetInstance().Remove(instance);
 	}
 }
+*/
