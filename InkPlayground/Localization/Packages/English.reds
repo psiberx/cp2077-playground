@@ -3,7 +3,7 @@ import BaseLib.Localization.*
 
 public class English extends ModLocalizationPackage {
 	protected func DefineTexts() -> Void {
-		this.Text("InkPlayground-Action-Title", "Ink Playground");
+		this.Text("InkPlayground-Action-Label", "Ink Playground");
 
 		this.Text("InkPlayground-Popup-Title", "Ink Playground");
 		this.Text("InkPlayground-Popup-Fluff-Right", "Build & Play With Ink Widgets");
