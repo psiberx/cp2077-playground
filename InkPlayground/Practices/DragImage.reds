@@ -67,7 +67,7 @@ public class DragImage extends Practice {
 		this.m_logo.RegisterToCallback(n"OnEnter", this, n"OnEnter");
 		this.m_logo.RegisterToCallback(n"OnLeave", this, n"OnLeave");
 
-		this.Log("[Drag Image] Logo is ready");
+		this.Log(this.GetLocalizedText("InkPlayground-DragImage-Event-Ready"));
 	}
 
 	protected cb func OnPress(evt: ref<inkPointerEvent>) -> Bool {
@@ -155,7 +155,11 @@ public class DragImage extends Practice {
 	}
 
 	protected func UpdateHints() -> Void {
-		this.UpdateHoldHint(n"mouse_left", "Drag", this.m_isHovered);
+		this.UpdateHoldHint(
+			n"mouse_left",
+			this.GetLocalizedText("InkPlayground-DragImage-Action-Drag"),
+			this.m_isHovered
+		);
 	}
 
 	protected func RemoveHints() -> Void {

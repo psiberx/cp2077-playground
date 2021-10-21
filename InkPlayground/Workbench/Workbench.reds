@@ -1,5 +1,6 @@
 module InkPlayground.Workbench
-import BaseLib.*
+import BaseLib.Localization.*
+import BaseLib.UI.*
 
 public class Workbench extends inkCustomController {
 	protected let m_root: wref<inkFlex>;
@@ -9,6 +10,8 @@ public class Workbench extends inkCustomController {
 	protected let m_journal: wref<Journal>;
 
 	protected let m_buttonHints: wref<ButtonHintsEx>;
+
+	protected let m_translator: wref<LocalizationSystem>;
 
 	protected let m_areaSize: Vector2;
 
@@ -41,7 +44,8 @@ public class Workbench extends inkCustomController {
 		frame.SetName(n"frame");
 		frame.SetAtlasResource(r"base\\gameplay\\gui\\fullscreen\\inventory\\inventory4_atlas.inkatlas");
 		frame.SetTexturePart(n"itemGridFrame3Big");
-		frame.SetNineSliceScale(true, new inkMargin(24, 24, 24, 24));
+		frame.SetNineSliceScale(true);
+		frame.SetNineSliceGrid(new inkMargin(24, 24, 24, 24));
 		frame.SetAnchor(inkEAnchor.Fill);
 		frame.SetOpacity(0.5);
 		frame.SetTintColor(ThemeColors.Bittersweet());
@@ -76,6 +80,10 @@ public class Workbench extends inkCustomController {
 		return this.m_buttonHints;
 	}
 
+	public func GetTranslator() -> wref<LocalizationSystem> {
+		return this.m_translator;
+	}
+
 	public func GetSize() -> Vector2 {
 		return this.m_areaSize;
 	}
@@ -86,6 +94,10 @@ public class Workbench extends inkCustomController {
 
 	public func SetHints(buttonHints: wref<ButtonHintsEx>) -> Void {
 		this.m_buttonHints = buttonHints;
+	}
+
+	public func SetTranslator(localization: wref<LocalizationSystem>) -> Void {
+		this.m_translator = localization;
 	}
 
 	public func AddPractice(practice: ref<Practice>) -> Void {

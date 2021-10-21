@@ -1,5 +1,5 @@
 module InkPlayground.Workbench
-import BaseLib.*
+import BaseLib.UI.*
 
 public class Journal extends inkCustomController {
 	protected let m_root: wref<inkFlex>;

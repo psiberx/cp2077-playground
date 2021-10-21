@@ -1,4 +1,5 @@
 import InkPlayground.InkPlaygroundPopup
+import BaseLib.Localization.LocalizationSystem
 
 @replaceMethod(BaseContextEvents)
 protected final func UpdateGenericExplorationInputHints(stateContext: ref<StateContext>, scriptInterface: ref<StateGameScriptInterface>) -> Void {
@@ -33,7 +34,10 @@ protected final func UpdateGenericExplorationInputHints(stateContext: ref<StateC
 
 @addMethod(InputContextTransitionEvents)
 protected final func ShowInkPlaygroundPopupInputHints(stateContext: ref<StateContext>, scriptInterface: ref<StateGameScriptInterface>) -> Void {
-	this.ShowInputHint(scriptInterface, n"Choice2_Hold", n"InkPlaygroundPopup", "Ink Playground", inkInputHintHoldIndicationType.Hold, true);
+	let localization: ref<LocalizationSystem> = LocalizationSystem.GetInstance(scriptInterface.GetGame());
+	let actionLabel: String = localization.GetText("InkPlayground-Action-Title");
+
+	this.ShowInputHint(scriptInterface, n"Choice2_Hold", n"InkPlaygroundPopup", actionLabel, inkInputHintHoldIndicationType.Hold, true);
 
 	stateContext.SetPermanentBoolParameter(n"isInkPlaygroundPopupInputHintDisplayed", true, true);
 }

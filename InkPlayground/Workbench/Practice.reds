@@ -1,12 +1,18 @@
 module InkPlayground.Workbench
-import BaseLib.*
+import BaseLib.Localization.*
+import BaseLib.UI.*
 
 public abstract class Practice extends inkCustomController {
+	protected let m_name: String;
+
 	protected let m_workbench: wref<Workbench>;
 
 	protected let m_container: wref<inkCanvas>;
 
-	protected cb func OnAssign() -> Void
+	protected cb func OnAssign() -> Void {
+		let namespace: String;
+		StrSplitLast(NameToString(this.GetClassName()), ".", namespace, this.m_name);
+	}
 
 	protected cb func OnCreate() -> Void {
 		let root: ref<inkCanvas> = new inkCanvas();
@@ -18,6 +24,10 @@ public abstract class Practice extends inkCustomController {
 
 	protected func GetAreaSize() -> Vector2 {
 		return this.m_workbench.GetSize();
+	}
+
+	protected func GetLocalizedText(key: String) -> String {
+		return this.m_workbench.GetTranslator().GetText(key);
 	}
 
 	protected func UpdateHint(action: CName, label: String, active: Bool) -> Void {
@@ -57,7 +67,7 @@ public abstract class Practice extends inkCustomController {
 	}
 
 	protected func Log(entry: String) -> Void {
-		this.m_workbench.GetJournal().AddEntry(entry);
+		this.m_workbench.GetJournal().AddEntry("[" + this.m_name + "] " + entry);
 	}
 
 	protected func Trigger(event: CName) -> Void {

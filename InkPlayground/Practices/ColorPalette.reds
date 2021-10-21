@@ -1,6 +1,6 @@
 module InkPlayground.Practices
 import InkPlayground.Workbench.Practice
-import BaseLib.*
+import BaseLib.UI.*
 
 public class ColorPalette extends Practice {
 	protected let m_palette: ref<inkCompoundWidget>;
@@ -71,6 +71,6 @@ public class ColorPalette extends Practice {
 			index += 1;
 		}
 
-		this.Log("[Color Palette] Palette is created");
+		this.Log(this.GetLocalizedText("InkPlayground-ColorPalette-Event-Ready"));
 	}
 }

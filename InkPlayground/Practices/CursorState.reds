@@ -1,6 +1,6 @@
 module InkPlayground.Practices
 import InkPlayground.Workbench.Practice
-import BaseLib.*
+import BaseLib.UI.*
 
 public class CursorState extends Practice {
 	protected let m_state: ref<inkText>;
@@ -40,7 +40,7 @@ public class CursorState extends Practice {
 
 		this.RegisterToGlobalInputCallback(n"OnPostOnRelative", this, n"OnCursorMove");
 
-		this.Log("[Cursor State] Tracking position...");
+		this.Log(this.GetLocalizedText("InkPlayground-CursorState-Event-Ready"));
 	}
 
 	protected cb func OnUninitialize() -> Void {

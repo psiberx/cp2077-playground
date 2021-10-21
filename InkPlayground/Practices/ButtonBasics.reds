@@ -1,6 +1,6 @@
 module InkPlayground.Practices
 import InkPlayground.Workbench.Practice
-import BaseLib.*
+import BaseLib.UI.*
 
 public class ButtonBasics extends Practice {
 	protected let m_top: ref<inkCompoundWidget>;
@@ -44,13 +44,13 @@ public class ButtonBasics extends Practice {
 		this.InitializeButtons();
 		this.RegisterListeners();
 
-		this.Log("[Button Basics] Buttons are ready");
+		this.Log(this.GetLocalizedText("InkPlayground-ButtonBasics-Event-Ready"));
 	}
 
 	protected func InitializeButtons() -> Void {
 		let buttonLeft: ref<BaseButton> = BaseButton.Create();
 		buttonLeft.SetName(n"LeftButton");
-		buttonLeft.SetText("Button L");
+		buttonLeft.SetText(this.GetLocalizedText("InkPlayground-ButtonBasics-Button-Left"));
 		buttonLeft.SetFlipped(true);
 		buttonLeft.ToggleAnimations(true);
 		buttonLeft.ToggleSounds(true);
@@ -58,14 +58,14 @@ public class ButtonBasics extends Practice {
 
 		let buttonRight: ref<BaseButton> = BaseButton.Create();
 		buttonRight.SetName(n"RightButton");
-		buttonRight.SetText("Button R");
+		buttonRight.SetText(this.GetLocalizedText("InkPlayground-ButtonBasics-Button-Right"));
 		buttonRight.ToggleAnimations(true);
 		buttonRight.ToggleSounds(true);
 		buttonRight.Mount(this.m_bottom, this);
 
 		let buttonHub: ref<HubButton> = HubButton.Create();
 		buttonHub.SetName(n"HubButton");
-		buttonHub.SetText("Hub Button");
+		buttonHub.SetText(this.GetLocalizedText("InkPlayground-ButtonBasics-Button-Hub"));
 		buttonHub.SetIcon(n"ico_deck_hub");
 		buttonHub.ToggleAnimations(true);
 		buttonHub.ToggleSounds(true);
@@ -88,7 +88,10 @@ public class ButtonBasics extends Practice {
 	protected cb func OnClick(widget: wref<inkWidget>) -> Bool {
 		let button: ref<CustomButton> = widget.GetController() as CustomButton;
 
-		this.Log("[" + NameToString(button.GetName()) + "] Event: OnClick");
+		let buttonName: String = button.GetText();
+		let buttonEvent: String = this.GetLocalizedText("InkPlayground-ButtonBasics-Event-Click");
+
+		this.Log(buttonName + ": " + buttonEvent);
 	}
 
 	protected cb func OnRelease(evt: ref<inkPointerEvent>) -> Bool {
@@ -97,10 +100,15 @@ public class ButtonBasics extends Practice {
 		if evt.IsAction(n"popup_moveUp") {
 			button.SetDisabled(!button.IsDisabled());
 
-			this.PlaySound(n"MapPin", n"OnCreate");
-			this.Log("[" + NameToString(button.GetName()) + "] State: " + (button.IsDisabled() ? "Disabled" : "Enabled"));
+			let buttonName: String = button.GetText();
+			let buttonEvent: String = button.IsDisabled()
+				? this.GetLocalizedText("InkPlayground-ButtonBasics-Event-Disable")
+				: this.GetLocalizedText("InkPlayground-ButtonBasics-Event-Enable");
 
+			this.Log(buttonName + ": " + buttonEvent);
 			this.UpdateHints(button);
+
+			this.PlaySound(n"MapPin", n"OnCreate");
 		}
 	}
 
@@ -115,8 +123,20 @@ public class ButtonBasics extends Practice {
 	}
 
 	protected func UpdateHints(button: ref<CustomButton>) -> Void {
-		this.UpdateHint(n"popup_moveUp", button.IsEnabled() ? "Disable" : "Enable");
-		this.UpdateHint(n"click", "Interact", button.IsEnabled());
+		this.UpdateHint(
+			n"popup_moveUp",
+			this.GetLocalizedText(
+				button.IsEnabled()
+					? "InkPlayground-ButtonBasics-Action-Disable"
+					: "InkPlayground-ButtonBasics-Action-Enable"
+			)
+		);
+
+		this.UpdateHint(
+			n"click",
+			this.GetLocalizedText("InkPlayground-ButtonBasics-Action-Interact"),
+			button.IsEnabled()
+		);
 	}
 
 	protected func RemoveHints() -> Void {

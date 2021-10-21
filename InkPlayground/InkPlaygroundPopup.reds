@@ -1,7 +1,8 @@
 module InkPlayground
 import InkPlayground.Workbench.*
 import InkPlayground.Practices.*
-import BaseLib.*
+import BaseLib.Localization.*
+import BaseLib.UI.*
 
 public class InkPlaygroundPopup extends InGamePopup {
 	protected let m_header: ref<InGamePopupHeader>;
@@ -12,23 +13,23 @@ public class InkPlaygroundPopup extends InGamePopup {
 
 	protected let m_workbench: ref<Workbench>;
 
+	protected let m_translator: ref<LocalizationSystem>;
+
 	protected cb func OnCreate() -> Void {
 		super.OnCreate();
+
+		this.m_translator = LocalizationSystem.GetInstance(this.GetGame());
 
 		this.m_container.SetHeight(990.0);
 
 		this.m_header = InGamePopupHeader.Create();
-		this.m_header.SetTitle("Ink Playground");
-		this.m_header.SetFluffRight("Build & Play With Ink Widgets");
+		this.m_header.SetTitle(this.m_translator.GetText("InkPlayground-Popup-Title"));
+		this.m_header.SetFluffRight(this.m_translator.GetText("InkPlayground-Popup-Fluff-Right"));
 		this.m_header.Reparent(this);
 
 		this.m_footer = InGamePopupFooter.Create();
 		this.m_footer.SetFluffIcon(n"fluff_triangle2");
-		this.m_footer.SetFluffText(
-			"This entire widget is 100% built from scratch using redscript.\n" +
-			"There are no reused, wrapped or extended widgets.\n" +
-			"Powered by Base Lib prototype."
-		);
+		this.m_footer.SetFluffText(this.m_translator.GetText("InkPlayground-Popup-Fluff-Bottom"));
 		this.m_footer.Reparent(this);
 
 		this.m_content = InGamePopupContent.Create();
@@ -36,6 +37,7 @@ public class InkPlaygroundPopup extends InGamePopup {
 
 		this.m_workbench = Workbench.Create();
 		this.m_workbench.SetSize(this.m_content.GetSize());
+		this.m_workbench.SetTranslator(this.m_translator);
 		this.m_workbench.Reparent(this.m_content);
 
 		this.m_workbench.AddPractice(new ColorPalette());
