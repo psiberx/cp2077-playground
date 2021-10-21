@@ -31,7 +31,7 @@
 // }
 //
 
-module BaseLib
+module BaseLib.UI
 
 public abstract class inkCustomController extends inkLogicController {
 	private let m_isCreated: Bool;

@@ -2,7 +2,7 @@
 // VirtualResolutionTarget
 // -----------------------------------------------------------------------------
 
-module BaseLib
+module BaseLib.UI
 
 public abstract class VirtualResolutionTarget {
 	protected let m_widget: wref<inkWidget>;

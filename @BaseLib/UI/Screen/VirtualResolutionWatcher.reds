@@ -7,7 +7,7 @@
 // - Notify controllers
 //
 
-module BaseLib
+module BaseLib.UI
 
 public class VirtualResolutionWatcher extends ConfigVarListener {
 	protected let m_initialized: Bool;

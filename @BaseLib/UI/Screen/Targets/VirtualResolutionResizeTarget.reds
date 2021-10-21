@@ -2,7 +2,7 @@
 // VirtualResolutionResizeTarget
 // -----------------------------------------------------------------------------
 
-module BaseLib
+module BaseLib.UI
 
 public class VirtualResolutionResizeTarget extends VirtualResolutionTarget {
 	protected let m_size: Vector2;

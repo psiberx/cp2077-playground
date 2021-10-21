@@ -14,7 +14,7 @@
 // }
 //
 
-module BaseLib
+module BaseLib.Scheduling
 
 @addMethod(DelaySystem)
 public func DelayEvent(controller: wref<inkGameController>, eventToDelay: ref<Event>, timeToDelay: Float, opt isAffectedByTimeDilation: Bool) -> DelayID {

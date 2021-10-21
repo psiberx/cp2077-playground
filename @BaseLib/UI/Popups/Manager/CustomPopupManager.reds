@@ -9,11 +9,11 @@
 //   public func HidePopup(popupController: ref<CustomPopup>) -> Void
 //   public func AttachPopup(request: ref<CustomPopupAttachRequest>) -> Void
 //   public static func GetInstance(game: GameInstance) -> ref<CustomPopupManager>
-//   public static func GetInstance() -> ref<CustomPopupManager>
 // }
 //
 
-module BaseLib
+module BaseLib.UI
+import BaseLib.Registry.*
 
 public class CustomPopupManager extends ICustomPopupManager {
 	private let m_gameController: wref<inkGameController>;
@@ -116,7 +116,7 @@ public class CustomPopupManager extends ICustomPopupManager {
 
 	public static func GetInstance(game: GameInstance) -> ref<CustomPopupManager> {
 		let registry: ref<RegistrySystem> = RegistrySystem.GetInstance(game);
-		let instance: ref<CustomPopupManager> = registry.Get(n"BaseLib.CustomPopupManager") as CustomPopupManager;
+		let instance: ref<CustomPopupManager> = registry.Get(n"BaseLib.UI.CustomPopupManager") as CustomPopupManager;
 
 		if !IsDefined(instance) {
 			instance = new CustomPopupManager();
@@ -124,10 +124,6 @@ public class CustomPopupManager extends ICustomPopupManager {
 		}
 
 		return instance;
-	}
-
-	public static func GetInstance() -> ref<CustomPopupManager> {
-		return CustomPopupManager.GetInstance(GetGameInstance());
 	}
 }
 

@@ -5,7 +5,7 @@
 // - Reference for base colors (should be replaced by ThemePicker)
 //
 
-module BaseLib
+module BaseLib.UI
 
 public abstract class ThemeColors {
 	public static func ElectricBlue() -> HDRColor = new HDRColor(0.368627, 0.964706, 1.0, 1.0)

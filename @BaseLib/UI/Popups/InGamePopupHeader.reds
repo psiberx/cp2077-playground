@@ -2,7 +2,7 @@
 // InGamePopupHeader
 // -----------------------------------------------------------------------------
 
-module BaseLib
+module BaseLib.UI
 
 public class InGamePopupHeader extends inkCustomController {
 	protected let m_title: wref<inkText>;

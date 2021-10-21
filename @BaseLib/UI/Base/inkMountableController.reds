@@ -12,7 +12,7 @@
 // }
 //
 
-module BaseLib
+module BaseLib.UI
 
 public abstract class inkMountableController extends inkCustomController {
 	public func Mount(parentWidget: ref<inkCompoundWidget>, opt gameController: ref<inkGameController>) -> Void {

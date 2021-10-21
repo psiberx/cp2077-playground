@@ -2,7 +2,7 @@
 // VirtualResolutionChangeEvent
 // -----------------------------------------------------------------------------
 
-module BaseLib
+module BaseLib.UI
 
 public class VirtualResolutionChangeEvent extends inkEvent {
 	protected let m_state: ref<VirtualResolutionData>;

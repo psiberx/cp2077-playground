@@ -28,7 +28,7 @@
 // }
 //
 
-module BaseLib
+module BaseLib.UI
 
 public abstract class CustomButton extends inkMountableController {
 	protected let m_root: ref<inkCompoundWidget>;

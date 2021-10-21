@@ -6,7 +6,7 @@
 // Hash consists of CRC32 and original string length:
 //
 
-module BaseLib
+module BaseLib.Hashing
 
 public abstract class CRC32L {
 	public static func Hash(str: String) -> Uint64 {

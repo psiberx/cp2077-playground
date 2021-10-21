@@ -8,7 +8,7 @@
 // - [TODO] Badges (used on character button only)
 //
 
-module BaseLib
+module BaseLib.UI
 
 public class HubButton extends CustomButton {
 	protected let m_icon: wref<inkImage>;

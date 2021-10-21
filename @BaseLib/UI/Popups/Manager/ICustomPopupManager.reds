@@ -2,7 +2,7 @@
 // ICustomPopupManager
 // -----------------------------------------------------------------------------
 
-module BaseLib
+module BaseLib.UI
 
 public abstract class ICustomPopupManager {
 	public func IsInitialized() -> Bool

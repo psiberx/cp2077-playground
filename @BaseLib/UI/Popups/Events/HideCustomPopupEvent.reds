@@ -2,7 +2,7 @@
 // HideCustomPopupEvent
 // -----------------------------------------------------------------------------
 
-module BaseLib
+module BaseLib.UI
 
 public class HideCustomPopupEvent extends CustomPopupEvent {
 	public static func Create(controller: ref<CustomPopup>) -> ref<HideCustomPopupEvent> {

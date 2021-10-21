@@ -2,7 +2,7 @@
 // VirtualResolutionScaleTarget
 // -----------------------------------------------------------------------------
 
-module BaseLib
+module BaseLib.UI
 
 public class VirtualResolutionScaleTarget extends VirtualResolutionTarget {
 	public func ApplyState(state: ref<VirtualResolutionData>) -> Void

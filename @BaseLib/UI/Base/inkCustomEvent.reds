@@ -7,7 +7,7 @@
 // }
 //
 
-module BaseLib
+module BaseLib.UI
 
 public abstract class inkCustomEvent extends inkEvent {
 	protected let controller: ref<inkCustomController>;

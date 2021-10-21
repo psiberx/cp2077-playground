@@ -2,7 +2,7 @@
 // CustomPopupAttachRequest
 // -----------------------------------------------------------------------------
 
-module BaseLib
+module BaseLib.UI
 
 public class CustomPopupAttachRequest {
 	public let controller: ref<CustomPopup>;

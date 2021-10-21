@@ -2,7 +2,7 @@
 // ControllerDelayCallback
 // -----------------------------------------------------------------------------
 
-module BaseLib
+module BaseLib.Scheduling
 
 public class ControllerDelayCallback extends DelayCallback {
 	public let controller: wref<IScriptable>;

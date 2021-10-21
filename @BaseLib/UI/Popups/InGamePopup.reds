@@ -11,7 +11,7 @@
 // - Blurs the screen as for original modal popups
 //
 
-module BaseLib
+module BaseLib.UI
 
 public abstract class InGamePopup extends CustomPopup {
 	protected let m_vignette: wref<inkImage>;

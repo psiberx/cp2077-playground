@@ -2,7 +2,7 @@
 // CustomPopupEvent
 // -----------------------------------------------------------------------------
 
-module BaseLib
+module BaseLib.UI
 
 public abstract class CustomPopupEvent extends inkCustomEvent {
 	public func GetPopupController() -> ref<CustomPopup> {

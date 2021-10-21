@@ -7,7 +7,7 @@
 // - [TODO] Update hint visibility without removing it
 //
 
-module BaseLib
+module BaseLib.UI
 
 public class ButtonHintsEx extends inkCustomController {
 	private let m_buttonHints: wref<ButtonHints>;

@@ -2,7 +2,7 @@
 // InGamePopupContent
 // -----------------------------------------------------------------------------
 
-module BaseLib
+module BaseLib.UI
 
 public class InGamePopupContent extends inkCustomController {
 	protected let m_content: wref<inkFlex>;

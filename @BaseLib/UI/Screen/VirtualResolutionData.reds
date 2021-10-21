@@ -2,7 +2,7 @@
 // VirtualResolutionData
 // -----------------------------------------------------------------------------
 
-module BaseLib
+module BaseLib.UI
 
 public class VirtualResolutionData {
 	protected let m_resolution: String;

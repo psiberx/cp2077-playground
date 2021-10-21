@@ -6,7 +6,7 @@
 // This is not really meant for production.
 //
 
-module BaseLib
+module BaseLib.Hashing
 
 public abstract class FNV1a64 {
 	public static func Hash(str: String) -> Uint64 {
@@ -33,18 +33,12 @@ public abstract class FNV1a64 {
 	}
 
 	private static func AsciiCharCodes() -> ref<inkStringMap> {
-		let map: ref<inkStringMap> = GameRegistry.Get(n"AsciiCharCodes") as inkStringMap;
+		let map: ref<inkStringMap> = new inkStringMap();
 
-		if !IsDefined(map) {
-			map = new inkStringMap();
-
-			let code: Int32;
-			while code <= 255 {
-				map.Insert(StrChar(code), Cast(code));
-				code += 1;
-			}
-
-			GameRegistry.Put(n"AsciiCharCodes", map);
+		let code: Int32;
+		while code <= 255 {
+			map.Insert(StrChar(code), Cast(code));
+			code += 1;
 		}
 
 		return map;

@@ -2,7 +2,7 @@
 // InGamePopupFooter
 // -----------------------------------------------------------------------------
 
-module BaseLib
+module BaseLib.UI
 
 public class InGamePopupFooter extends inkCustomController {
 	protected let m_fluffIcon: wref<inkImage>;

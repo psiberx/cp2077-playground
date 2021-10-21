@@ -2,7 +2,7 @@
 // CustomPopupAttachCallback
 // -----------------------------------------------------------------------------
 
-module BaseLib
+module BaseLib.UI
 
 public class CustomPopupAttachCallback extends DelayCallback {
 	protected let m_manager: ref<CustomPopupManager>;

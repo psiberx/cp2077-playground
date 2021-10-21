@@ -8,7 +8,7 @@
 // }
 //
 
-module BaseLib
+module BaseLib.UI
 
 public abstract class inkAttachableController extends inkCustomController {
 	public func Attach(rootWidget: ref<inkCompoundWidget>, opt gameController: wref<inkGameController>) -> Void {

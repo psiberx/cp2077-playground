@@ -18,7 +18,7 @@
 // }
 //
 
-module BaseLib
+module BaseLib.UI
 
 public abstract class CustomPopup extends inkAttachableController {
 	protected let m_notificationData: ref<inkGameNotificationData>;

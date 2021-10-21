@@ -2,7 +2,7 @@
 // ShowCustomPopupEvent
 // -----------------------------------------------------------------------------
 
-module BaseLib
+module BaseLib.UI
 
 public class ShowCustomPopupEvent extends CustomPopupEvent {
 	public static func Create(controller: ref<CustomPopup>) -> ref<ShowCustomPopupEvent> {

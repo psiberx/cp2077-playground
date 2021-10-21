@@ -2,7 +2,7 @@
 // BaseButton
 // -----------------------------------------------------------------------------
 
-module BaseLib
+module BaseLib.UI
 
 public class BaseButton extends CustomButton {
 	protected let m_isFlipped: Bool;
@@ -49,7 +49,8 @@ public class BaseButton extends CustomButton {
 		bg.SetTintColor(ThemeColors.BlackPearl());
 		bg.SetOpacity(0.8);
 		bg.SetAnchor(inkEAnchor.Fill);
-		bg.SetNineSliceScale(true, new inkMargin(0.0, 0.0, 10.0, 0.0));
+		bg.SetNineSliceScale(true);
+		bg.SetNineSliceGrid(new inkMargin(0.0, 0.0, 10.0, 0.0));
 		bg.Reparent(root);
 
 		let fill: ref<inkImage> = new inkImage();
@@ -57,7 +58,8 @@ public class BaseButton extends CustomButton {
 		fill.SetAtlasResource(r"base\\gameplay\\gui\\common\\shapes\\atlas_shapes_sync.inkatlas");
 		fill.SetOpacity(0.0);
 		fill.SetAnchor(inkEAnchor.Fill);
-		fill.SetNineSliceScale(true, new inkMargin(0.0, 0.0, 10.0, 0.0));
+		fill.SetNineSliceScale(true);
+		fill.SetNineSliceGrid(new inkMargin(0.0, 0.0, 10.0, 0.0));
 		fill.Reparent(root);
 
 		let frame: ref<inkImage> = new inkImage();
@@ -65,7 +67,8 @@ public class BaseButton extends CustomButton {
 		frame.SetAtlasResource(r"base\\gameplay\\gui\\common\\shapes\\atlas_shapes_sync.inkatlas");
 		frame.SetOpacity(1.0);
 		frame.SetAnchor(inkEAnchor.Fill);
-		frame.SetNineSliceScale(true, new inkMargin(0.0, 0.0, 10.0, 0.0));
+		frame.SetNineSliceScale(true);
+		frame.SetNineSliceGrid(new inkMargin(0.0, 0.0, 10.0, 0.0));
 		frame.Reparent(root);
 
 		let label: ref<inkText> = new inkText();

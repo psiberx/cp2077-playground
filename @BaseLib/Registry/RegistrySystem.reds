@@ -13,11 +13,11 @@
 //   public func Remove(name: CName) -> Void
 //   public func Remove(instance: ref<IScriptable>) -> Void
 //   public static func GetInstance(game: GameInstance) -> ref<RegistrySystem>
-//   public static func GetInstance() -> ref<RegistrySystem>
 // }
 //
 
-module BaseLib
+module BaseLib.Registry
+import BaseLib.Hashing.CRC32L
 
 public class RegistrySystem extends ScriptableSystem {
 	private let m_container: ref<inkHashMap>;
@@ -59,10 +59,6 @@ public class RegistrySystem extends ScriptableSystem {
 	}
 
 	public static func GetInstance(game: GameInstance) -> ref<RegistrySystem> {
-		return GameInstance.GetScriptableSystemsContainer(game).Get(n"BaseLib.RegistrySystem") as RegistrySystem;
-	}
-
-	public static func GetInstance() -> ref<RegistrySystem> {
-		return RegistrySystem.GetInstance(GetGameInstance());
+		return GameInstance.GetScriptableSystemsContainer(game).Get(n"BaseLib.Registry.RegistrySystem") as RegistrySystem;
 	}
 }
