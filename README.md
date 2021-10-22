@@ -18,7 +18,7 @@ Prototype of the lib for redscript.
   * Apply scaling to widgets
   * Make adaptive layouts
 - Hashing
-  * TweakDB
+  * TweakDBID
   * FNV1a64 (Experimental and ineffective)
 - Delay System
   * Schedule events for UI controllers
