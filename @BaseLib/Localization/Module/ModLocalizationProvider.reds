@@ -6,7 +6,7 @@
 // - Resolve packages by language code
 // - Define logic on locale and gender changes
 //
-// Supported languages:
+// Supported language codes:
 // - pl-pl (Polish)
 // - en-us (English)
 // - es-es (Spanish)
@@ -30,6 +30,7 @@
 //
 // public abstract class ModLocalizationProvider extends ScriptableSystem {
 //   public func GetPackage(language: CName) -> ref<ModLocalizationPackage>
+//   public func GetFallback() -> CName
 //   public func OnLocaleChange() -> Void
 //   public func OnGenderChange() -> Void
 // }
@@ -44,6 +45,8 @@ public abstract class ModLocalizationProvider extends ScriptableSystem {
 	}
 
 	public func GetPackage(language: CName) -> ref<ModLocalizationPackage>
+
+	public func GetFallback() -> CName
 
 	public func OnLocaleChange() -> Void
 

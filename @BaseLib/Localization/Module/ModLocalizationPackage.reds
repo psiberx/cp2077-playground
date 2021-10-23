@@ -48,6 +48,14 @@ public abstract class ModLocalizationPackage {
 		}
 	}
 
+	public func GetEntriesList(type: EntryType) -> array<wref<IScriptable>> {
+		let values: array<wref<IScriptable>>;
+
+		this.GetEntries(type).GetValues(values);
+
+		return values;
+	}
+
 	protected func DefineTexts() -> Void
 
 	protected func DefineSubtitles() -> Void

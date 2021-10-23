@@ -178,7 +178,17 @@ public class LocalizationSystem extends ScriptableSystem {
 		let package: ref<ModLocalizationPackage> = provider.GetPackage(language);
 
 		if !IsDefined(package) {
-			return;
+			let fallback: CName = provider.GetFallback();
+
+			if Equals(fallback, n"") {
+				return;
+			}
+
+			package = provider.GetPackage(fallback);
+
+			if !IsDefined(package) {
+				return;
+			}
 		}
 
 		let values: array<wref<IScriptable>>;
