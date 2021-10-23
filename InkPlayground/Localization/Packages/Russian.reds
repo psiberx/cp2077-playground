@@ -1,4 +1,4 @@
-module InkPlayground.Localization
+module InkPlayground.Localization.Packages
 import BaseLib.Localization.*
 
 public class Russian extends ModLocalizationPackage {
