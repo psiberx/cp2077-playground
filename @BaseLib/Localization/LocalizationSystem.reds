@@ -37,6 +37,12 @@ public class LocalizationSystem extends ScriptableSystem {
 
 	private let m_settingsWatcher: ref<LanguageSettingsWatcher>;
 
+	private let m_genderWatcher: ref<PlayerGenderWatcher>;
+
+	private let m_localeChanged: Bool;
+
+	private let m_genderChanged: Bool;
+
 	private func OnAttach() -> Void {
 		this.m_interfaceTranslationData = new inkHashMap();
 		this.m_subtitleTranslationData = new inkHashMap();
@@ -45,10 +51,18 @@ public class LocalizationSystem extends ScriptableSystem {
 		this.m_settingsWatcher.Initialize(this.GetGameInstance());
 		this.m_settingsWatcher.Start();
 
+		this.m_genderWatcher = new PlayerGenderWatcher();
+		this.m_genderWatcher.Initialize(this.GetGameInstance());
+		this.m_genderWatcher.Start();
+
 		this.UpdateLocale();
 		this.UpdateTranslations();
 
 		this.QueueRequest(UpdateGenderRequest.Create());
+	}
+
+	private func OnDetach() -> Void {
+		this.m_genderWatcher.Stop();
 	}
 
 	private func OnRegisterProviderRequest(request: ref<RegisterProviderRequest>) -> Void {
@@ -72,18 +86,57 @@ public class LocalizationSystem extends ScriptableSystem {
 		this.UpdateTranslations();
 	}
 
+	private func NotifyProviders() -> Void {
+		if this.m_localeChanged {
+			for provider in this.m_providers {
+				provider.OnLocaleChange();
+			}
+			this.m_localeChanged = false;
+		}
+
+		if this.m_genderChanged {
+			for provider in this.m_providers {
+				provider.OnGenderChange();
+			}
+			this.m_genderChanged = false;
+		}
+	}
+
 	private func UpdateLocale() -> Void {
 		let settings: ref<UserSettings> = GameInstance.GetSettingsSystem(this.GetGameInstance());
 
-		this.m_interfaceLanguage = (settings.GetVar(n"/language", n"OnScreen") as ConfigVarListName).GetValue();
-		this.m_subtitleLanguage = (settings.GetVar(n"/language", n"Subtitles") as ConfigVarListName).GetValue();
-		this.m_voiceLanguage = (settings.GetVar(n"/language", n"VoiceOver") as ConfigVarListName).GetValue();
+		let interfaceLanguage: CName = (settings.GetVar(n"/language", n"OnScreen") as ConfigVarListName).GetValue();
+		let subtitleLanguage: CName = (settings.GetVar(n"/language", n"Subtitles") as ConfigVarListName).GetValue();
+		let voiceLanguage: CName = (settings.GetVar(n"/language", n"VoiceOver") as ConfigVarListName).GetValue();
+
+		if NotEquals(this.m_interfaceLanguage, interfaceLanguage) {
+			this.m_interfaceLanguage = interfaceLanguage;
+			this.m_localeChanged = true;
+		}
+
+		if NotEquals(this.m_subtitleLanguage, subtitleLanguage) {
+			this.m_subtitleLanguage = subtitleLanguage;
+			this.m_localeChanged = true;
+		}
+
+		if NotEquals(this.m_voiceLanguage, voiceLanguage) {
+			this.m_voiceLanguage = voiceLanguage;
+			this.m_localeChanged = true;
+		}
+
+		this.NotifyProviders();
 	}
 
 	private func UpdateGender() -> Void {
-		let genderName: CName = GetPlayer(this.GetGameInstance()).GetResolvedGenderName();
+		let playerGenderName: CName = GetPlayer(this.GetGameInstance()).GetResolvedGenderName();
+		let playerGender: PlayerGender = Equals(playerGenderName, n"Male") ? PlayerGender.Male : PlayerGender.Female;
 
-		this.m_playerGender = Equals(genderName, n"Male") ? PlayerGender.Male : PlayerGender.Female;
+		if NotEquals(this.m_playerGender, playerGender) {
+			this.m_playerGender = playerGender;
+			this.m_genderChanged = true;
+		}
+
+		this.NotifyProviders();
 	}
 
 	private func UpdateTranslations() -> Void {
