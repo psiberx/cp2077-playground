@@ -6,7 +6,7 @@
 // - Can be turned off with the in-code setting
 //
 
-public static func AutoContine() -> Bool = true
+public static func AutoContine() -> Bool = false
 
 @addField(DebugDataDef)
 public let AutoContinueUsed: Bool;

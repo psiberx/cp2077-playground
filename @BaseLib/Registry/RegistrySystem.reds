@@ -17,7 +17,6 @@
 //
 
 module BaseLib.Registry
-import BaseLib.Hashing.TDBID64
 
 public class RegistrySystem extends ScriptableSystem {
 	private let m_container: ref<inkHashMap>;
@@ -26,14 +25,18 @@ public class RegistrySystem extends ScriptableSystem {
 		this.m_container = new inkHashMap();
 	}
 
+	private func Key(name: CName) -> Uint64 {
+		return TDBID.ToNumber(TDBID.Create(NameToString(name)));
+	}
+
 	public func Get(name: CName) -> ref<IScriptable> {
-		let key: Uint64 = TDBID64.Compute(name);
+		let key: Uint64 = this.Key(name);
 
 		return this.m_container.Get(key);
 	}
 
 	public func Put(name: CName, instance: ref<IScriptable>) -> Void {
-		let key: Uint64 = TDBID64.Compute(name);
+		let key: Uint64 = this.Key(name);
 
 		if this.m_container.KeyExist(key) {
 			this.m_container.Set(key, instance);
@@ -47,7 +50,7 @@ public class RegistrySystem extends ScriptableSystem {
 	}
 
 	public func Remove(name: CName) -> Void {
-		let key: Uint64 = TDBID64.Compute(name);
+		let key: Uint64 = this.Key(name);
 
 		if this.m_container.KeyExist(key) {
 			this.m_container.Remove(key);
