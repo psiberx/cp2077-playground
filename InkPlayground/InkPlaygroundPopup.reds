@@ -1,8 +1,8 @@
 module InkPlayground
 import InkPlayground.Workbench.*
 import InkPlayground.Practices.*
-import BaseLib.Localization.*
-import BaseLib.UI.*
+import Codeware.Localization.*
+import Codeware.UI.*
 
 public class InkPlaygroundPopup extends InGamePopup {
 	protected let m_header: ref<InGamePopupHeader>;

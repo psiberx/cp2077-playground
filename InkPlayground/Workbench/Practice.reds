@@ -1,6 +1,6 @@
 module InkPlayground.Workbench
-import BaseLib.Localization.*
-import BaseLib.UI.*
+import Codeware.Localization.*
+import Codeware.UI.*
 
 public abstract class Practice extends inkCustomController {
 	protected let m_name: String;

@@ -1,5 +1,5 @@
 import InkPlayground.InkPlaygroundPopup
-import BaseLib.Localization.LocalizationSystem
+import Codeware.Localization.LocalizationSystem
 
 @replaceMethod(BaseContextEvents)
 protected final func UpdateGenericExplorationInputHints(stateContext: ref<StateContext>, scriptInterface: ref<StateGameScriptInterface>) -> Void {

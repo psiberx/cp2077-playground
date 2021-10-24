@@ -1,6 +1,6 @@
 module InkPlayground.Workbench
-import BaseLib.Localization.*
-import BaseLib.UI.*
+import Codeware.Localization.*
+import Codeware.UI.*
 
 public class Workbench extends inkCustomController {
 	protected let m_root: wref<inkFlex>;

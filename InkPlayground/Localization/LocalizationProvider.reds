@@ -1,6 +1,6 @@
 module InkPlayground.Localization
 import InkPlayground.Localization.Packages.*
-import BaseLib.Localization.*
+import Codeware.Localization.*
 
 public class LocalizationProvider extends ModLocalizationProvider {
 	public func GetPackage(language: CName) -> ref<ModLocalizationPackage> {

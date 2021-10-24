@@ -1,0 +1,3 @@
+[submodule "Codeware"]
+	path = Codeware
+	url = git@github.com:psiberx/cp2077-codeware.git

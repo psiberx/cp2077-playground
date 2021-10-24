@@ -1,6 +1,6 @@
 module InkPlayground.Practices
 import InkPlayground.Workbench.Practice
-import BaseLib.UI.*
+import Codeware.UI.*
 
 public class ColorPalette extends Practice {
 	protected let m_palette: ref<inkCompoundWidget>;

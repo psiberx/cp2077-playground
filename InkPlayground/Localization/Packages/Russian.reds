@@ -1,5 +1,5 @@
 module InkPlayground.Localization.Packages
-import BaseLib.Localization.*
+import Codeware.Localization.*
 
 public class Russian extends ModLocalizationPackage {
 	public func DefineTexts() -> Void {
