@@ -5,7 +5,7 @@ More info [here](https://github.com/psiberx/cp2077-codeware).
 
 ## Dev Tools
 
-- `AutoContinue.reds` – Resume the game from last used save skipping the Main Menu.
+- `AutoContinue.reds` – Load last used save on game start skipping the Main Menu.
 - `LogDebug.reds` – Defines logging functions that write to `DEBUG` channel.
 
 ## Ink Playground
