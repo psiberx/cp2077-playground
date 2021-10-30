@@ -88,9 +88,9 @@ public class Journal extends inkCustomController {
 	}
 
 	public static func Create() -> ref<Journal> {
-		let instance: ref<Journal> = new Journal();
-		instance.Build();
+		let self: ref<Journal> = new Journal();
+		self.CreateInstance();
 
-		return instance;
+		return self;
 	}
 }

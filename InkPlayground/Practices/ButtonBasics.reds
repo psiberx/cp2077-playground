@@ -48,20 +48,20 @@ public class ButtonBasics extends Practice {
 	}
 
 	protected func InitializeButtons() -> Void {
-		let buttonLeft: ref<BaseButton> = BaseButton.Create();
+		let buttonLeft: ref<SimpleButton> = SimpleButton.Create();
 		buttonLeft.SetName(n"LeftButton");
 		buttonLeft.SetText(this.GetLocalizedText("InkPlayground-ButtonBasics-Button-Left"));
 		buttonLeft.SetFlipped(true);
 		buttonLeft.ToggleAnimations(true);
 		buttonLeft.ToggleSounds(true);
-		buttonLeft.Mount(this.m_bottom, this);
+		buttonLeft.Reparent(this.m_bottom);
 
-		let buttonRight: ref<BaseButton> = BaseButton.Create();
+		let buttonRight: ref<SimpleButton> = SimpleButton.Create();
 		buttonRight.SetName(n"RightButton");
 		buttonRight.SetText(this.GetLocalizedText("InkPlayground-ButtonBasics-Button-Right"));
 		buttonRight.ToggleAnimations(true);
 		buttonRight.ToggleSounds(true);
-		buttonRight.Mount(this.m_bottom, this);
+		buttonRight.Reparent(this.m_bottom);
 
 		let buttonHub: ref<HubButton> = HubButton.Create();
 		buttonHub.SetName(n"HubButton");
@@ -69,7 +69,7 @@ public class ButtonBasics extends Practice {
 		buttonHub.SetIcon(n"ico_deck_hub");
 		buttonHub.ToggleAnimations(true);
 		buttonHub.ToggleSounds(true);
-		buttonHub.Mount(this.m_top, this);
+		buttonHub.Reparent(this.m_top);
 
 		ArrayPush(this.m_buttons, buttonLeft);
 		ArrayPush(this.m_buttons, buttonRight);

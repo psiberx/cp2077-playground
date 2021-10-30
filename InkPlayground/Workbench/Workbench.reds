@@ -109,9 +109,9 @@ public class Workbench extends inkCustomController {
 	}
 
 	public static func Create() -> ref<Workbench> {
-		let instance: ref<Workbench> = new Workbench();
-		instance.Build();
+		let self: ref<Workbench> = new Workbench();
+		self.CreateInstance();
 
-		return instance;
+		return self;
 	}
 }
