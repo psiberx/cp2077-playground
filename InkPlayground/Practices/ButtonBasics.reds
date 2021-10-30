@@ -3,11 +3,9 @@ import InkPlayground.Workbench.Practice
 import Codeware.UI.*
 
 public class ButtonBasics extends Practice {
-	protected let m_top: ref<inkCompoundWidget>;
+	protected let m_top: wref<inkCompoundWidget>;
 
-	protected let m_bottom: ref<inkCompoundWidget>;
-
-	protected let m_buttons: array<ref<CustomButton>>;
+	protected let m_bottom: wref<inkCompoundWidget>;
 
 	protected cb func OnCreate() -> Void {
 		let root: ref<inkCanvas> = new inkCanvas();
@@ -34,34 +32,20 @@ public class ButtonBasics extends Practice {
 		bottom.SetChildMargin(new inkMargin(20.0, 0.0, 20.0, 0.0));
 		bottom.Reparent(rows);
 
-		this.m_top = top;
-		this.m_bottom = bottom;
-
-		this.SetRootWidget(root);
-	}
-
-	protected cb func OnInitialize() -> Void {
-		this.InitializeButtons();
-		this.RegisterListeners();
-
-		this.Log(this.GetLocalizedText("InkPlayground-ButtonBasics-Event-Ready"));
-	}
-
-	protected func InitializeButtons() -> Void {
 		let buttonLeft: ref<SimpleButton> = SimpleButton.Create();
 		buttonLeft.SetName(n"LeftButton");
 		buttonLeft.SetText(this.GetLocalizedText("InkPlayground-ButtonBasics-Button-Left"));
 		buttonLeft.SetFlipped(true);
 		buttonLeft.ToggleAnimations(true);
 		buttonLeft.ToggleSounds(true);
-		buttonLeft.Reparent(this.m_bottom);
+		buttonLeft.Reparent(bottom);
 
 		let buttonRight: ref<SimpleButton> = SimpleButton.Create();
 		buttonRight.SetName(n"RightButton");
 		buttonRight.SetText(this.GetLocalizedText("InkPlayground-ButtonBasics-Button-Right"));
 		buttonRight.ToggleAnimations(true);
 		buttonRight.ToggleSounds(true);
-		buttonRight.Reparent(this.m_bottom);
+		buttonRight.Reparent(bottom);
 
 		let buttonHub: ref<HubButton> = HubButton.Create();
 		buttonHub.SetName(n"HubButton");
@@ -69,19 +53,37 @@ public class ButtonBasics extends Practice {
 		buttonHub.SetIcon(n"ico_deck_hub");
 		buttonHub.ToggleAnimations(true);
 		buttonHub.ToggleSounds(true);
-		buttonHub.Reparent(this.m_top);
+		buttonHub.Reparent(top);
 
-		ArrayPush(this.m_buttons, buttonLeft);
-		ArrayPush(this.m_buttons, buttonRight);
-		ArrayPush(this.m_buttons, buttonHub);
+		this.m_top = top;
+		this.m_bottom = bottom;
+
+		this.SetRootWidget(root);
 	}
 
-	protected func RegisterListeners() -> Void {
-		for button in this.m_buttons {
-			button.RegisterToCallback(n"OnClick", this, n"OnClick");
-			button.RegisterToCallback(n"OnRelease", this, n"OnRelease");
-			button.RegisterToCallback(n"OnEnter", this, n"OnEnter");
-			button.RegisterToCallback(n"OnLeave", this, n"OnLeave");
+	protected cb func OnInitialize() -> Void {
+		this.RegisterListeners(this.m_top);
+		this.RegisterListeners(this.m_bottom);
+
+		this.Log(this.GetLocalizedText("InkPlayground-ButtonBasics-Event-Ready"));
+	}
+
+	protected func RegisterListeners(container: wref<inkCompoundWidget>) -> Void {
+		let childIndex: Int32 = 0;
+		let numChildren: Int32 = container.GetNumChildren();
+
+		while childIndex < numChildren {
+			let widget: ref<inkWidget> = container.GetWidgetByIndex(childIndex);
+			let button: ref<CustomButton> = widget.GetController() as CustomButton;
+
+			if IsDefined(button) {
+				button.RegisterToCallback(n"OnClick", this, n"OnClick");
+				button.RegisterToCallback(n"OnRelease", this, n"OnRelease");
+				button.RegisterToCallback(n"OnEnter", this, n"OnEnter");
+				button.RegisterToCallback(n"OnLeave", this, n"OnLeave");
+			}
+
+			childIndex += 1;
 		}
 	}
 
