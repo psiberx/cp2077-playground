@@ -29,5 +29,8 @@ public class English extends ModLocalizationPackage {
 
 		this.Text("InkPlayground-DragImage-Event-Ready", "Image is ready");
 		this.Text("InkPlayground-DragImage-Action-Drag", "Drag");
+
+		this.Text("InkPlayground-InputText-Event-Ready", "Text input is ready");
+		this.Text("InkPlayground-InputText-Input-Label", "Enter something");
 	}
 }

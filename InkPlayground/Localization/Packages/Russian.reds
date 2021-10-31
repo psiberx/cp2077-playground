@@ -29,5 +29,8 @@ public class Russian extends ModLocalizationPackage {
 
 		this.Text("InkPlayground-DragImage-Event-Ready", "Изображение готово");
 		this.Text("InkPlayground-DragImage-Action-Drag", "Перемещать");
+
+		this.Text("InkPlayground-InputText-Event-Ready", "Текстовое поле готово");
+		this.Text("InkPlayground-InputText-Input-Label", "Ввод текста");
 	}
 }

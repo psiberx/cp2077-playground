@@ -20,7 +20,7 @@ public class InkPlaygroundPopup extends InGamePopup {
 
 		this.m_translator = LocalizationSystem.GetInstance(this.GetGame());
 
-		this.m_container.SetHeight(990.0);
+		this.m_container.SetHeight(1040.0);
 
 		this.m_header = InGamePopupHeader.Create();
 		this.m_header.SetTitle(this.m_translator.GetText("InkPlayground-Popup-Title"));
@@ -44,6 +44,7 @@ public class InkPlaygroundPopup extends InGamePopup {
 		this.m_workbench.AddPractice(new ButtonBasics());
 		this.m_workbench.AddPractice(new DragImage());
 		this.m_workbench.AddPractice(new CursorState());
+		this.m_workbench.AddPractice(new InputText());
 	}
 
 	protected cb func OnInitialize() -> Void {
