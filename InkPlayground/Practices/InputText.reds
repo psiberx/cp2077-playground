@@ -22,15 +22,16 @@ public class InputText extends Practice {
 		let label: ref<inkText> = new inkText();
 		label.SetName(n"label");
 		label.SetText(this.GetLocalizedText("InkPlayground-InputText-Input-Label"));
-		label.SetFontFamily("base\\gameplay\\gui\\fonts\\raj\\raj.inkfontfamily");
-		label.SetFontStyle(n"Medium");
-		label.SetFontSize(40);
+		label.SetFontFamily("base\\gameplay\\gui\\fonts\\orbitron\\orbitron.inkfontfamily");
+		label.SetFontStyle(n"Regular");
+		label.SetFontSize(25);
 		label.SetLetterCase(textLetterCase.UpperCase);
 		label.SetTintColor(ThemeColors.Bittersweet());
+		label.SetMargin(new inkMargin(0.0, 0.0, 0.0, 4.0));
 		label.Reparent(group);
 
-		let input: ref<TextInput> = FilterTextInput.Create();
-		input.ToggleAnimations(true);
+		let input: ref<TextInput> = HubTextInput.Create();
+		input.SetText("We can type things now! WEEEEE!!");
 		input.Reparent(group);
 
 		this.m_group = group;
