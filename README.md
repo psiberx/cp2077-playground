@@ -17,6 +17,11 @@ There are no repurposed original UI controllers.
 To open the Ink Playground popup you have to hold `R` when on foot (same key as for reload or radio). 
 To close the popup press `ESC` or `C` key.
 
+## Codex Filter
+
+Adds search bar to the Hub > Database menu.
+Filters database entries by simple text match.
+
 ## Inventory Tooltip Fix
 
 Prevents the item tooltip from disappearing on some resolutions.
