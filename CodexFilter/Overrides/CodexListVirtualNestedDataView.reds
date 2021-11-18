@@ -20,9 +20,12 @@ protected func FilterItems(data: ref<VirutalNestedListData>) -> Bool {
 		return false;
 	}
 
-	/*data.m_isHeader ||*/
 	if StrLen(this.m_currentTextFilter) == 0 {
 		return true;
+	}
+
+	if data.m_isHeader {
+		return false;
 	}
 
 	let entryData: ref<CodexEntryData> = data.m_data as CodexEntryData;
