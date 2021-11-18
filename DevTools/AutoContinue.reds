@@ -6,7 +6,7 @@
 // - Can be turned off with the in-code setting
 //
 
-public static func AutoContine() -> Bool = false
+public static func AutoContinue() -> Bool = false
 
 @addField(DebugDataDef)
 public let AutoContinueUsed: Bool;
@@ -15,7 +15,7 @@ public let AutoContinueUsed: Bool;
 protected cb func OnSavesReady(saves: array<String>) -> Bool {
 	wrappedMethod(saves);
 
-	if this.m_savesCount > 0 && AutoContine() && !GetAllBlackboardDefs().DebugData.AutoContinueUsed {
+	if this.m_savesCount > 0 && AutoContinue() && !GetAllBlackboardDefs().DebugData.AutoContinueUsed {
 		this.GetSystemRequestsHandler().LoadLastCheckpoint(false);
 	}
 }
