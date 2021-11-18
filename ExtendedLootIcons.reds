@@ -28,7 +28,7 @@ private final func CreateRoleMappinData(data: SDeviceMappinData) -> ref<Gameplay
 private func UpdateIcon() -> Void {
 	wrappedMethod();
 
-    if IsDefined(this.m_mappin) {
+	if IsDefined(this.m_mappin) {
 		let mappinData: ref<GameplayRoleMappinData> = this.m_mappin.GetScriptData() as GameplayRoleMappinData;
 
 		inkWidgetRef.SetScale(this.iconWidget, mappinData.m_isItem ? new Vector2(0.6, 0.6) : new Vector2(1.0, 1.0));

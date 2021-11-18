@@ -6,7 +6,7 @@ public let m_currentTextFilter: String;
 @addMethod(CodexListVirtualNestedDataView)
 public final func SetTextFilter(filterTerm: String) -> Void {
 	this.m_currentTextFilter = StrUpper(filterTerm);
-    ArrayClear(this.m_toggledLevels);
+	ArrayClear(this.m_toggledLevels);
 
 	this.Filter();
 	this.EnableSorting();

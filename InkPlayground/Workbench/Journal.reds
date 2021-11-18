@@ -59,7 +59,7 @@ public class Journal extends inkCustomController {
 		let alphaAnim: ref<inkAnimTransparency> = new inkAnimTransparency();
 		alphaAnim.SetStartTransparency(0.0);
 		alphaAnim.SetEndTransparency(1.0);
-    	alphaAnim.SetMode(inkanimInterpolationMode.EasyIn);
+		alphaAnim.SetMode(inkanimInterpolationMode.EasyIn);
 		alphaAnim.SetDuration(0.5);
 
 		let animDef: ref<inkAnimDef> = new inkAnimDef();
