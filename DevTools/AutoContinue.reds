@@ -12,7 +12,7 @@ public static func AutoContinue() -> Bool = false
 public let AutoContinueUsed: Bool;
 
 @wrapMethod(SingleplayerMenuGameController)
-protected cb func OnSavesReady(saves: array<String>) -> Bool {
+protected cb func OnSavesForLoadReady(saves: array<String>) -> Bool {
 	wrappedMethod(saves);
 
 	if this.m_savesCount > 0 && AutoContinue() && !GetAllBlackboardDefs().DebugData.AutoContinueUsed {
