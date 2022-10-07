@@ -64,7 +64,7 @@ public class ColorPalette extends Practice {
 			animDef.AddInterpolator(alphaAnim);
 
 			let animOpts: inkAnimOptions;
-			animOpts.executionDelay = 0.15 + (0.1 * Cast(index));
+			animOpts.executionDelay = 0.15 + (0.1 * Cast<Float>(index));
 
 			item.PlayAnimationWithOptions(animDef, animOpts);
 

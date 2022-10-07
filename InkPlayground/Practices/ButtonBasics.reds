@@ -77,7 +77,7 @@ public class ButtonBasics extends Practice {
 			let button: ref<CustomButton> = widget.GetController() as CustomButton;
 
 			if IsDefined(button) {
-				button.RegisterToCallback(n"OnClick", this, n"OnClick");
+				button.RegisterToCallback(n"OnBtnClick", this, n"OnClick");
 				button.RegisterToCallback(n"OnRelease", this, n"OnRelease");
 				button.RegisterToCallback(n"OnEnter", this, n"OnEnter");
 				button.RegisterToCallback(n"OnLeave", this, n"OnLeave");
