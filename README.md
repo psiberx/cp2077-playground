@@ -1,8 +1,3 @@
-## Codeware
-
-Library for redscript. 
-More info [here](https://github.com/psiberx/cp2077-codeware).
-
 ## Dev Tools
 
 - `AutoContinue.reds` – Load last used save on game start skipping the Main Menu.
@@ -17,10 +12,14 @@ There are no repurposed original UI controllers.
 To open the Ink Playground popup you have to hold `R` when on foot (same key as for reload or radio). 
 To close the popup press `ESC` or `C` key.
 
+Requires [Codeware](https://github.com/psiberx/cp2077-codeware).
+
 ## Codex Filter
 
 Adds search bar to the Hub > Database menu.
 Filters database entries by simple text match.
+
+Requires [Codeware](https://github.com/psiberx/cp2077-codeware).
 
 ## Inventory Tooltip Fix
 
