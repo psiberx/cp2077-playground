@@ -9,7 +9,7 @@ protected final func UpdateGenericExplorationInputHints(stateContext: ref<StateC
 		return;
 	}
 
-	let isValidState: Bool = this.IsStateValidForExploration(stateContext, scriptInterface);
+	let isValidState = this.IsStateValidForExploration(stateContext, scriptInterface);
 
 	if isValidState || (this.IsInHighLevelState(stateContext, n"exploration") && DefaultTransition.HasRightWeaponEquipped(scriptInterface)) {
 		if !stateContext.GetBoolParameter(n"isInkPlaygroundPopupInputHintDisplayed", true) {
@@ -34,8 +34,8 @@ protected final func UpdateGenericExplorationInputHints(stateContext: ref<StateC
 
 @addMethod(InputContextTransitionEvents)
 protected final func ShowInkPlaygroundPopupInputHints(stateContext: ref<StateContext>, scriptInterface: ref<StateGameScriptInterface>) -> Void {
-	let localization: ref<LocalizationSystem> = LocalizationSystem.GetInstance(scriptInterface.GetGame());
-	let actionLabel: String = localization.GetText("InkPlayground-Action-Label");
+	let localization = LocalizationSystem.GetInstance(scriptInterface.GetGame());
+	let actionLabel = localization.GetText("InkPlayground-Action-Label");
 
 	this.ShowInputHint(scriptInterface, n"Choice2_Hold", n"InkPlaygroundPopup", actionLabel, inkInputHintHoldIndicationType.Hold, true);
 
@@ -68,13 +68,13 @@ private final func RegisterInputListenersForPlayer(playerPuppet: ref<GameObject>
 protected cb func OnAction(action: ListenerAction, consumer: ListenerActionConsumer) -> Bool {
 	wrappedMethod(action, consumer);
 
-	let actionName: CName = ListenerAction.GetName(action);
-	let actionType: gameinputActionType = ListenerAction.GetType(action);
+	let actionName = ListenerAction.GetName(action);
+	let actionType = ListenerAction.GetType(action);
 
 	if Equals(actionName, n"Choice2_Hold") && Equals(actionType, gameinputActionType.BUTTON_HOLD_COMPLETE) {
-		let player: ref<PlayerPuppet> = this.GetPlayerControlledObject() as PlayerPuppet;
-		let blackboard: ref<IBlackboard> = player.GetPlayerStateMachineBlackboard();
-		let state: gamePSMVehicle = IntEnum(blackboard.GetInt(GetAllBlackboardDefs().PlayerStateMachine.Vehicle));
+		let player = this.GetPlayerControlledObject() as PlayerPuppet;
+		let blackboard = player.GetPlayerStateMachineBlackboard();
+		let state = IntEnum<gamePSMVehicle>(blackboard.GetInt(GetAllBlackboardDefs().PlayerStateMachine.Vehicle));
 
 		if Equals(state, gamePSMVehicle.Default) {
 			InkPlaygroundPopup.Show(this);

@@ -6,11 +6,11 @@ public class ColorPalette extends Practice {
 	protected let m_palette: ref<inkCompoundWidget>;
 
 	protected cb func OnCreate() -> Void {
-		let root: ref<inkFlex> = new inkFlex();
+		let root = new inkFlex();
 		root.SetName(this.GetClassName());
 		root.SetAnchor(inkEAnchor.Fill);
 
-		let palette: ref<inkVerticalPanel> = new inkVerticalPanel();
+		let palette = new inkVerticalPanel();
 		palette.SetName(n"palette");
 		palette.SetAnchor(inkEAnchor.CenterRight);
 		palette.SetHAlign(inkEHorizontalAlign.Right);
@@ -25,9 +25,9 @@ public class ColorPalette extends Practice {
 	}
 
 	protected cb func OnInitialize() -> Void {
-		let index: Int32 = 0;
+		let index = 0;
 
-		let palette: array<HDRColor> = [
+		let palette = [
 			ThemeColors.ElectricBlue(),
 			ThemeColors.Bittersweet(),
 			ThemeColors.Dandelion(),
@@ -35,7 +35,7 @@ public class ColorPalette extends Practice {
 		];
 
 		for color in palette {
-			let item: ref<inkCircle> = new inkCircle();
+			let item = new inkCircle();
 			item.SetAffectsLayoutWhenHidden(true);
 			item.SetSize(new Vector2(48.0, 48.0));
 			item.SetSegmentsNumber(6u); // Hexagon
@@ -45,21 +45,21 @@ public class ColorPalette extends Practice {
 			item.SetOpacity(0.0);
 			item.Reparent(this.m_palette);
 
-			let scaleAnim: ref<inkAnimScale> = new inkAnimScale();
+			let scaleAnim = new inkAnimScale();
 			scaleAnim.SetStartScale(new Vector2(0.6, 0.6));
 			scaleAnim.SetEndScale(new Vector2(1.0, 1.0));
 			scaleAnim.SetType(inkanimInterpolationType.Linear);
 			scaleAnim.SetMode(inkanimInterpolationMode.EasyOut);
 			scaleAnim.SetDuration(0.3);
 
-			let alphaAnim: ref<inkAnimTransparency> = new inkAnimTransparency();
+			let alphaAnim = new inkAnimTransparency();
 			alphaAnim.SetStartTransparency(0.0);
 			alphaAnim.SetEndTransparency(1.0);
 			alphaAnim.SetType(inkanimInterpolationType.Linear);
 			alphaAnim.SetMode(inkanimInterpolationMode.EasyOut);
 			alphaAnim.SetDuration(0.4);
 
-			let animDef: ref<inkAnimDef> = new inkAnimDef();
+			let animDef = new inkAnimDef();
 			animDef.AddInterpolator(scaleAnim);
 			animDef.AddInterpolator(alphaAnim);
 

@@ -4,15 +4,14 @@ import Codeware.UI.*
 
 public class ButtonBasics extends Practice {
 	protected let m_top: wref<inkCompoundWidget>;
-
 	protected let m_bottom: wref<inkCompoundWidget>;
 
 	protected cb func OnCreate() -> Void {
-		let root: ref<inkCanvas> = new inkCanvas();
+		let root = new inkCanvas();
 		root.SetName(this.GetClassName());
 		root.SetAnchor(inkEAnchor.Fill);
 		
-		let rows: ref<inkVerticalPanel> = new inkVerticalPanel();
+		let rows = new inkVerticalPanel();
 		rows.SetName(n"rows");
 		rows.SetFitToContent(true);
 		rows.SetAnchor(inkEAnchor.Centered);
@@ -20,19 +19,19 @@ public class ButtonBasics extends Practice {
 		rows.SetChildMargin(new inkMargin(0.0, 30.0, 0.0, 30.0));
 		rows.Reparent(root);
 
-		let top: ref<inkHorizontalPanel> = new inkHorizontalPanel();
+		let top = new inkHorizontalPanel();
 		top.SetFitToContent(true);
 		top.SetHAlign(inkEHorizontalAlign.Center);
 		top.SetChildMargin(new inkMargin(20.0, 0.0, 20.0, 0.0));
 		top.Reparent(rows);
 
-		let bottom: ref<inkHorizontalPanel> = new inkHorizontalPanel();
+		let bottom = new inkHorizontalPanel();
 		bottom.SetFitToContent(true);
 		bottom.SetHAlign(inkEHorizontalAlign.Center);
 		bottom.SetChildMargin(new inkMargin(20.0, 0.0, 20.0, 0.0));
 		bottom.Reparent(rows);
 
-		let buttonLeft: ref<SimpleButton> = SimpleButton.Create();
+		let buttonLeft = SimpleButton.Create();
 		buttonLeft.SetName(n"LeftButton");
 		buttonLeft.SetText(this.GetLocalizedText("InkPlayground-ButtonBasics-Button-Left"));
 		buttonLeft.SetFlipped(true);
@@ -40,14 +39,14 @@ public class ButtonBasics extends Practice {
 		buttonLeft.ToggleSounds(true);
 		buttonLeft.Reparent(bottom);
 
-		let buttonRight: ref<SimpleButton> = SimpleButton.Create();
+		let buttonRight = SimpleButton.Create();
 		buttonRight.SetName(n"RightButton");
 		buttonRight.SetText(this.GetLocalizedText("InkPlayground-ButtonBasics-Button-Right"));
 		buttonRight.ToggleAnimations(true);
 		buttonRight.ToggleSounds(true);
 		buttonRight.Reparent(bottom);
 
-		let buttonHub: ref<HubButton> = HubButton.Create();
+		let buttonHub = HubLinkButton.Create();
 		buttonHub.SetName(n"HubButton");
 		buttonHub.SetText(this.GetLocalizedText("InkPlayground-ButtonBasics-Button-Hub"));
 		buttonHub.SetIcon(n"ico_deck_hub");
@@ -73,8 +72,8 @@ public class ButtonBasics extends Practice {
 		let numChildren: Int32 = container.GetNumChildren();
 
 		while childIndex < numChildren {
-			let widget: ref<inkWidget> = container.GetWidgetByIndex(childIndex);
-			let button: ref<CustomButton> = widget.GetController() as CustomButton;
+			let widget = container.GetWidgetByIndex(childIndex);
+			let button = widget.GetController() as CustomButton;
 
 			if IsDefined(button) {
 				button.RegisterToCallback(n"OnBtnClick", this, n"OnClick");
@@ -88,7 +87,7 @@ public class ButtonBasics extends Practice {
 	}
 
 	protected cb func OnClick(widget: wref<inkWidget>) -> Bool {
-		let button: ref<CustomButton> = widget.GetController() as CustomButton;
+		let button = widget.GetController() as CustomButton;
 
 		let buttonName: String = button.GetText();
 		let buttonEvent: String = this.GetLocalizedText("InkPlayground-ButtonBasics-Event-Click");
@@ -97,7 +96,7 @@ public class ButtonBasics extends Practice {
 	}
 
 	protected cb func OnRelease(evt: ref<inkPointerEvent>) -> Bool {
-		let button: ref<CustomButton> = evt.GetTarget().GetController() as CustomButton;
+		let button = evt.GetTarget().GetController() as CustomButton;
 
 		if evt.IsAction(n"popup_moveUp") {
 			button.SetDisabled(!button.IsDisabled());
@@ -115,7 +114,7 @@ public class ButtonBasics extends Practice {
 	}
 
 	protected cb func OnEnter(evt: ref<inkPointerEvent>) -> Bool {
-		let button: ref<CustomButton> = evt.GetTarget().GetController() as CustomButton;
+		let button = evt.GetTarget().GetController() as CustomButton;
 
 		this.UpdateHints(button);
 	}

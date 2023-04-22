@@ -3,17 +3,16 @@ import Codeware.UI.*
 
 public class Journal extends inkCustomController {
 	protected let m_root: wref<inkFlex>;
-
 	protected let m_log: wref<inkVerticalPanel>;
 
 	protected cb func OnCreate() -> Void {
-		let root: ref<inkFlex> = new inkFlex();
+		let root = new inkFlex();
 		root.SetName(n"journal");
 		root.SetAnchor(inkEAnchor.LeftFillVerticaly);
 		root.SetMargin(new inkMargin(16.0, 12.0, 0.0, 12.0));
 		root.SetChildOrder(inkEChildOrder.Backward);
 
-		let log: ref<inkVerticalPanel> = new inkVerticalPanel();
+		let log = new inkVerticalPanel();
 		log.SetName(n"log");
 		log.SetAnchor(inkEAnchor.Fill);
 		log.SetChildOrder(inkEChildOrder.Backward);
@@ -27,7 +26,7 @@ public class Journal extends inkCustomController {
 	}
 
 	public func AddEntry(text: String) -> Void {
-		let entry: ref<inkText> = new inkText();
+		let entry = new inkText();
 		entry.SetFontFamily("base\\gameplay\\gui\\fonts\\raj\\raj.inkfontfamily");
 		entry.SetFontStyle(n"Regular");
 		entry.SetFontSize(24);
@@ -50,19 +49,19 @@ public class Journal extends inkCustomController {
 	}
 
 	protected func FadeInEntry(entry: ref<inkWidget>) -> Void {
-		let marginAnim: ref<inkAnimMargin> = new inkAnimMargin();
+		let marginAnim = new inkAnimMargin();
 		marginAnim.SetStartMargin(new inkMargin(40.0, 0.0, 0.0, 0.0));
 		marginAnim.SetEndMargin(new inkMargin(0.0, 0.0, 0.0, 0.0));
 		marginAnim.SetMode(inkanimInterpolationMode.EasyOut);
 		marginAnim.SetDuration(0.25);
 
-		let alphaAnim: ref<inkAnimTransparency> = new inkAnimTransparency();
+		let alphaAnim = new inkAnimTransparency();
 		alphaAnim.SetStartTransparency(0.0);
 		alphaAnim.SetEndTransparency(1.0);
 		alphaAnim.SetMode(inkanimInterpolationMode.EasyIn);
 		alphaAnim.SetDuration(0.5);
 
-		let animDef: ref<inkAnimDef> = new inkAnimDef();
+		let animDef = new inkAnimDef();
 		animDef.AddInterpolator(marginAnim);
 		animDef.AddInterpolator(alphaAnim);
 
@@ -70,16 +69,16 @@ public class Journal extends inkCustomController {
 	}
 
 	protected func FadeOutEntry(entry: ref<inkWidget>) -> Void {
-		let alphaAnim: ref<inkAnimTransparency> = new inkAnimTransparency();
+		let alphaAnim = new inkAnimTransparency();
 		alphaAnim.SetStartTransparency(1.0);
 		alphaAnim.SetEndTransparency(0.0);
 		alphaAnim.SetMode(inkanimInterpolationMode.EasyOut);
 		alphaAnim.SetDuration(0.25);
 
-		let animDef: ref<inkAnimDef> = new inkAnimDef();
+		let animDef = new inkAnimDef();
 		animDef.AddInterpolator(alphaAnim);
 
-		let animProxy: ref<inkAnimProxy> = entry.PlayAnimation(animDef);
+		let animProxy = entry.PlayAnimation(animDef);
 		animProxy.RegisterToCallback(inkanimEventType.OnFinish, this, n"OnFadeOutEnd");
 	}
 
@@ -88,7 +87,7 @@ public class Journal extends inkCustomController {
 	}
 
 	public static func Create() -> ref<Journal> {
-		let self: ref<Journal> = new Journal();
+		let self = new Journal();
 		self.CreateInstance();
 
 		return self;

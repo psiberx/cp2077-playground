@@ -4,30 +4,25 @@ import Codeware.UI.*
 
 public class Workbench extends inkCustomController {
 	protected let m_root: wref<inkFlex>;
-
 	protected let m_container: wref<inkCanvas>;
-
 	protected let m_journal: wref<Journal>;
-
 	protected let m_buttonHints: wref<ButtonHintsEx>;
-
 	protected let m_translator: wref<LocalizationSystem>;
-
 	protected let m_areaSize: Vector2;
 
 	protected cb func OnCreate() -> Void {
-		let workbench: ref<inkFlex> = new inkFlex();
+		let workbench = new inkFlex();
 		workbench.SetName(n"workbench");
 		workbench.SetAnchor(inkEAnchor.Fill);
 
-		let background: ref<inkRectangle> = new inkRectangle();
+		let background = new inkRectangle();
 		background.SetAnchor(inkEAnchor.Fill);
 		background.SetMargin(new inkMargin(8.0, 8.0, 8.0, 8.0));
 		background.SetTintColor(ThemeColors.PureBlack());
 		background.SetOpacity(0.217);
 		background.Reparent(workbench);
 
-		let pattern: ref<inkImage> = new inkImage();
+		let pattern = new inkImage();
 		pattern.SetName(n"pattern");
 		pattern.SetAtlasResource(r"base\\gameplay\\gui\\fullscreen\\inventory\\atlas_inventory.inkatlas");
 		pattern.SetTexturePart(n"BLUEPRINT_3slot");
@@ -40,7 +35,7 @@ public class Workbench extends inkCustomController {
 		pattern.SetMargin(new inkMargin(8.0, 4.0, 8.0, 2.0));
 		pattern.Reparent(workbench);
 
-		let frame: ref<inkImage> = new inkImage();
+		let frame = new inkImage();
 		frame.SetName(n"frame");
 		frame.SetAtlasResource(r"base\\gameplay\\gui\\fullscreen\\inventory\\inventory4_atlas.inkatlas");
 		frame.SetTexturePart(n"itemGridFrame3Big");
@@ -51,12 +46,12 @@ public class Workbench extends inkCustomController {
 		frame.SetTintColor(ThemeColors.Bittersweet());
 		frame.Reparent(workbench);
 
-		let container: ref<inkCanvas> = new inkCanvas();
+		let container = new inkCanvas();
 		container.SetName(n"container");
 		container.SetAnchor(inkEAnchor.Fill);
 		container.Reparent(workbench);
 
-		let journal: ref<Journal> = Journal.Create();
+		let journal = Journal.Create();
 		journal.SetGameController(this);
 		journal.Reparent(workbench);
 
@@ -109,7 +104,7 @@ public class Workbench extends inkCustomController {
 	}
 
 	public static func Create() -> ref<Workbench> {
-		let self: ref<Workbench> = new Workbench();
+		let self = new Workbench();
 		self.CreateInstance();
 
 		return self;

@@ -1,5 +1,5 @@
 module CodexFilter
-import Codeware.UI.HubTextInput
+import Codeware.UI.*
 
 @addField(CodexGameController)
 private let m_filterInput: ref<HubTextInput>;
@@ -9,11 +9,12 @@ protected cb func OnInitialize() -> Bool {
 	wrappedMethod();
 
 	// wrapper/layout_wrapper/LeftBlock/LeftBlockWrapper/CategoryContainer
-	let filterPanel: ref<inkHorizontalPanel> = inkWidgetRef.Get(this.m_filtersContainer) as inkHorizontalPanel;
+	let filterPanel = inkWidgetRef.Get(this.m_filtersContainer) as inkHorizontalPanel;
 
 	this.m_filterInput = new HubTextInput();
 	this.m_filterInput.Reparent(filterPanel, this);
 	this.m_filterInput.SetLetterCase(textLetterCase.UpperCase);
+	this.m_filterInput.SetDefaultText(GetLocalizedText("LocKey#48662"));
 	this.m_filterInput.RegisterToCallback(n"OnInput", this, n"OnFilterInput");
 
 	this.RegisterToGlobalInputCallback(n"OnPostOnRelease", this, n"OnGlobalInput");

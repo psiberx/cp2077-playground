@@ -10,10 +10,10 @@ public let m_isItem: Bool;
 
 @wrapMethod(GameplayRoleComponent)
 private final func CreateRoleMappinData(data: SDeviceMappinData) -> ref<GameplayRoleMappinData> {
-	let mappinData: ref<GameplayRoleMappinData> = wrappedMethod(data);
+	let mappinData = wrappedMethod(data);
 
 	if this.GetOwner().IsItem() && Equals(data.mappinVariant, gamedataMappinVariant.LootVariant) {
-		let weaponObject: ref<WeaponObject> = this.GetOwner() as WeaponObject;
+		let weaponObject = this.GetOwner() as WeaponObject;
 
 		if IsDefined(weaponObject) {
 			mappinData.m_isItem = true;
@@ -29,7 +29,7 @@ private func UpdateIcon() -> Void {
 	wrappedMethod();
 
 	if IsDefined(this.m_mappin) {
-		let mappinData: ref<GameplayRoleMappinData> = this.m_mappin.GetScriptData() as GameplayRoleMappinData;
+		let mappinData = this.m_mappin.GetScriptData() as GameplayRoleMappinData;
 
 		inkWidgetRef.SetScale(this.iconWidget, mappinData.m_isItem ? new Vector2(0.6, 0.6) : new Vector2(1.0, 1.0));
 	}

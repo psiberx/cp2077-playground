@@ -4,15 +4,14 @@ import Codeware.UI.*
 
 public class CursorState extends Practice {
 	protected let m_state: ref<inkText>;
-
 	protected let m_params: ref<inkTextParams>;
 
 	protected cb func OnCreate() -> Void {
-		let root: ref<inkFlex> = new inkFlex();
+		let root = new inkFlex();
 		root.SetName(this.GetClassName());
 		root.SetAnchor(inkEAnchor.Fill);
 
-		let state: ref<inkText> = new inkText();
+		let state = new inkText();
 		state.SetName(n"state");
 		state.SetFontFamily("base\\gameplay\\gui\\fonts\\orbitron\\orbitron.inkfontfamily");
 		state.SetFontStyle(n"Medium");
@@ -48,7 +47,7 @@ public class CursorState extends Practice {
 	}
 
 	protected cb func OnCursorMove(evt: ref<inkPointerEvent>) -> Void {
-		let position: Vector2 = evt.GetScreenSpacePosition();
+		let position = evt.GetScreenSpacePosition();
 
 		this.m_params.UpdateNumber("X", RoundF(position.X));
 		this.m_params.UpdateNumber("Y", RoundF(position.Y));

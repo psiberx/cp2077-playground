@@ -27,21 +27,15 @@ module ManualLeaning
 
 public class LeaningHandler {
 	private let m_player: wref<PlayerPuppet>;
-
 	private let m_obstacleSystem: ref<PlayerObstacleSystem>;
 
 	private let m_currentLeaning: coverLeanDirection;
-
 	private let m_lastLeaning: coverLeanDirection;
-
 	private let m_isAiming: Bool;
-
 	private let m_isInCover: Bool;
 
 	private let m_attachedCallback: Uint32;
-
 	private let m_aimingListener: ref<CallbackHandle>;
-
 	private let m_coverListener: ref<CallbackHandle>;
 
 	public func Register(player: wref<PlayerPuppet>) -> Void {
@@ -118,7 +112,7 @@ public class LeaningHandler {
 	}
 
 	protected cb func OnPlayerAttached(playerPuppet: ref<GameObject>) -> Void {
-		let pmsBlackboard: ref<IBlackboard> = this.m_player.GetPlayerStateMachineBlackboard();
+		let pmsBlackboard = this.m_player.GetPlayerStateMachineBlackboard();
 		this.m_aimingListener = pmsBlackboard.RegisterListenerInt(GetAllBlackboardDefs().PlayerStateMachine.UpperBody, this, n"OnUpperBodyStateChanged");
 		this.m_coverListener = pmsBlackboard.RegisterListenerBool(GetAllBlackboardDefs().PlayerStateMachine.UsingCover, this, n"OnUsingCoverStateChanged");
 
@@ -126,12 +120,12 @@ public class LeaningHandler {
 	}
 
 	protected cb func OnUpperBodyStateChanged(state: Int32) -> Bool {
-		let isAiming: Bool = (state == EnumInt(gamePSMUpperBodyStates.Aim));
+		let isAiming = (state == EnumInt(gamePSMUpperBodyStates.Aim));
 
 		if !Equals(isAiming, this.m_isAiming) {
 			if isAiming {
 				if this.WasLeaning() {
-					let leanCallback: ref<DelayedLeanToCallback> = new DelayedLeanToCallback();
+					let leanCallback = new DelayedLeanToCallback();
 					leanCallback.direction = this.m_lastLeaning;
 					leanCallback.handler = this;
 
@@ -184,7 +178,6 @@ public class LeaningHandler {
 
 public class DelayedLeanToCallback extends DelayCallback {
 	public let handler: ref<LeaningHandler>;
-
 	public let direction: coverLeanDirection;
 
 	public func Call() -> Void {

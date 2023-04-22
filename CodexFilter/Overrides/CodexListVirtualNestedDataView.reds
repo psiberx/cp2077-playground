@@ -5,7 +5,8 @@ public let m_currentTextFilter: String;
 
 @addMethod(CodexListVirtualNestedDataView)
 public final func SetTextFilter(filterTerm: String) -> Void {
-	this.m_currentTextFilter = StrUpper(filterTerm);
+	this.m_currentTextFilter = filterTerm;
+
 	ArrayClear(this.m_toggledLevels);
 
 	this.Filter();
@@ -20,7 +21,7 @@ protected func FilterItems(data: ref<VirutalNestedListData>) -> Bool {
 		return false;
 	}
 
-	if StrLen(this.m_currentTextFilter) == 0 {
+	if UTF8StrLen(this.m_currentTextFilter) == 0 {
 		return true;
 	}
 
@@ -28,7 +29,7 @@ protected func FilterItems(data: ref<VirutalNestedListData>) -> Bool {
 		return false;
 	}
 
-	let entryData: ref<CodexEntryData> = data.m_data as CodexEntryData;
+	let entryData = data.m_data as CodexEntryData;
 
 	return CodexFilter.Match(entryData, this.m_currentTextFilter);
 }

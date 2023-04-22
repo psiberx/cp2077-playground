@@ -6,13 +6,9 @@ import Codeware.UI.*
 
 public class InkPlaygroundPopup extends InGamePopup {
 	protected let m_header: ref<InGamePopupHeader>;
-
 	protected let m_footer: ref<InGamePopupFooter>;
-
 	protected let m_content: ref<InGamePopupContent>;
-
 	protected let m_workbench: ref<Workbench>;
-
 	protected let m_translator: ref<LocalizationSystem>;
 
 	protected cb func OnCreate() -> Void {
@@ -58,7 +54,7 @@ public class InkPlaygroundPopup extends InGamePopup {
 	}
 
 	public static func Show(requester: ref<inkGameController>) -> Void {
-		let popup: ref<InkPlaygroundPopup> = new InkPlaygroundPopup();
+		let popup = new InkPlaygroundPopup();
 
 		// Pass popup options
 		//popup.SetOption1(param1);

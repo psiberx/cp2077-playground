@@ -4,9 +4,7 @@ import Codeware.UI.*
 
 public abstract class Practice extends inkCustomController {
 	protected let m_name: String;
-
 	protected let m_workbench: wref<Workbench>;
-
 	protected let m_container: wref<inkCanvas>;
 
 	protected cb func OnAssign() -> Void {
@@ -15,7 +13,7 @@ public abstract class Practice extends inkCustomController {
 	}
 
 	protected cb func OnCreate() -> Void {
-		let root: ref<inkCanvas> = new inkCanvas();
+		let root = new inkCanvas();
 		root.SetName(this.GetClassName());
 		root.SetAnchor(inkEAnchor.Fill);
 
