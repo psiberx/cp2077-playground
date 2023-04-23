@@ -65,7 +65,7 @@ private final func RegisterInputListenersForPlayer(playerPuppet: ref<GameObject>
 }
 
 @wrapMethod(gameuiInGameMenuGameController)
-protected cb func OnAction(action: ListenerAction, consumer: ListenerActionConsumer) -> Bool {
+protected cb func OnAction(action: ListenerAction, consumer: ListenerActionConsumer) {
 	wrappedMethod(action, consumer);
 
 	let actionName = ListenerAction.GetName(action);
@@ -76,9 +76,16 @@ protected cb func OnAction(action: ListenerAction, consumer: ListenerActionConsu
 		let blackboard = player.GetPlayerStateMachineBlackboard();
 		let state = IntEnum<gamePSMVehicle>(blackboard.GetInt(GetAllBlackboardDefs().PlayerStateMachine.Vehicle));
 
-		if Equals(state, gamePSMVehicle.Default) {
-			InkPlaygroundPopup.Show(this);
-			ListenerActionConsumer.DontSendReleaseEvent(consumer);
+		if NotEquals(state, gamePSMVehicle.Default) {
+		    return;
 		}
+
+		if !Codeware.Require("1.1.4") {
+		    LogChannel(n"DEBUG", "InkPLayground requires Codeware 1.1.4");
+		    return;
+		}
+
+		InkPlaygroundPopup.Show(this);
+        ListenerActionConsumer.DontSendReleaseEvent(consumer);
 	}
 }
