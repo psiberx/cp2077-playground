@@ -6,7 +6,7 @@ public class ButtonBasics extends Practice {
 	protected let m_top: wref<inkCompoundWidget>;
 	protected let m_bottom: wref<inkCompoundWidget>;
 
-	protected cb func OnCreate() -> Void {
+	protected cb func OnCreate() {
 		let root = new inkCanvas();
 		root.SetName(this.GetClassName());
 		root.SetAnchor(inkEAnchor.Fill);
@@ -15,7 +15,7 @@ public class ButtonBasics extends Practice {
 		rows.SetName(n"rows");
 		rows.SetFitToContent(true);
 		rows.SetAnchor(inkEAnchor.Centered);
-		rows.SetAnchorPoint(new Vector2(0.5, 0.5));
+		rows.SetAnchorPoint(new Vector2(0.5, 0.75));
 		rows.SetChildMargin(new inkMargin(0.0, 30.0, 0.0, 30.0));
 		rows.Reparent(root);
 
@@ -60,14 +60,14 @@ public class ButtonBasics extends Practice {
 		this.SetRootWidget(root);
 	}
 
-	protected cb func OnInitialize() -> Void {
+	protected cb func OnInitialize() {
 		this.RegisterListeners(this.m_top);
 		this.RegisterListeners(this.m_bottom);
 
 		this.Log(this.GetLocalizedText("InkPlayground-ButtonBasics-Event-Ready"));
 	}
 
-	protected func RegisterListeners(container: wref<inkCompoundWidget>) -> Void {
+	protected func RegisterListeners(container: wref<inkCompoundWidget>) {
 		let childIndex: Int32 = 0;
 		let numChildren: Int32 = container.GetNumChildren();
 
@@ -89,8 +89,8 @@ public class ButtonBasics extends Practice {
 	protected cb func OnClick(widget: wref<inkWidget>) -> Bool {
 		let button = widget.GetController() as CustomButton;
 
-		let buttonName: String = button.GetText();
-		let buttonEvent: String = this.GetLocalizedText("InkPlayground-ButtonBasics-Event-Click");
+		let buttonName = button.GetText();
+		let buttonEvent = this.GetLocalizedText("InkPlayground-ButtonBasics-Event-Click");
 
 		this.Log(buttonName + ": " + buttonEvent);
 	}
@@ -123,7 +123,7 @@ public class ButtonBasics extends Practice {
 		this.RemoveHints();
 	}
 
-	protected func UpdateHints(button: ref<CustomButton>) -> Void {
+	protected func UpdateHints(button: ref<CustomButton>) {
 		this.UpdateHint(
 			n"popup_moveUp",
 			this.GetLocalizedText(
@@ -140,7 +140,7 @@ public class ButtonBasics extends Practice {
 		);
 	}
 
-	protected func RemoveHints() -> Void {
+	protected func RemoveHints() {
 		this.RemoveHint(n"popup_moveUp");
 		this.RemoveHint(n"click");
 	}

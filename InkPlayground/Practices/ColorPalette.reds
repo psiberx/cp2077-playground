@@ -5,7 +5,7 @@ import Codeware.UI.*
 public class ColorPalette extends Practice {
 	protected let m_palette: ref<inkCompoundWidget>;
 
-	protected cb func OnCreate() -> Void {
+	protected cb func OnCreate() {
 		let root = new inkFlex();
 		root.SetName(this.GetClassName());
 		root.SetAnchor(inkEAnchor.Fill);
@@ -24,7 +24,7 @@ public class ColorPalette extends Practice {
 		this.SetRootWidget(root);
 	}
 
-	protected cb func OnInitialize() -> Void {
+	protected cb func OnInitialize() {
 		let index = 0;
 
 		let palette = [

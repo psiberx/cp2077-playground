@@ -6,7 +6,7 @@ public class CursorState extends Practice {
 	protected let m_state: ref<inkText>;
 	protected let m_params: ref<inkTextParams>;
 
-	protected cb func OnCreate() -> Void {
+	protected cb func OnCreate() {
 		let root = new inkFlex();
 		root.SetName(this.GetClassName());
 		root.SetAnchor(inkEAnchor.Fill);
@@ -31,7 +31,7 @@ public class CursorState extends Practice {
 		this.SetRootWidget(root);
 	}
 
-	protected cb func OnInitialize() -> Void {
+	protected cb func OnInitialize() {
 		this.m_params = new inkTextParams();
 		this.m_params.AddNumber("X", 0);
 		this.m_params.AddNumber("Y", 0);
@@ -42,11 +42,11 @@ public class CursorState extends Practice {
 		this.Log(this.GetLocalizedText("InkPlayground-CursorState-Event-Ready"));
 	}
 
-	protected cb func OnUninitialize() -> Void {
+	protected cb func OnUninitialize() {
 		this.UnregisterFromGlobalInputCallback(n"OnPostOnRelative", this, n"OnCursorMove");
 	}
 
-	protected cb func OnCursorMove(evt: ref<inkPointerEvent>) -> Void {
+	protected cb func OnCursorMove(evt: ref<inkPointerEvent>) {
 		let position = evt.GetScreenSpacePosition();
 
 		this.m_params.UpdateNumber("X", RoundF(position.X));

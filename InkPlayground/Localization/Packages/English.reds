@@ -2,7 +2,7 @@ module InkPlayground.Localization.Packages
 import Codeware.Localization.*
 
 public class English extends ModLocalizationPackage {
-	protected func DefineTexts() -> Void {
+	protected func DefineTexts() {
 		this.Text("InkPlayground-Action-Label", "Ink Playground");
 
 		this.Text("InkPlayground-Popup-Title", "Ink Playground");

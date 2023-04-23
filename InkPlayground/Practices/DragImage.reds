@@ -11,7 +11,7 @@ public class DragImage extends Practice {
 	protected let m_dragAnimDef: ref<inkAnimDef>;
 	protected let m_dragAnimProxy: ref<inkAnimProxy>;
 
-	protected cb func OnCreate() -> Void {
+	protected cb func OnCreate() {
 		let root = new inkCanvas();
 		root.SetName(this.GetClassName());
 		root.SetAnchor(inkEAnchor.Fill);
@@ -31,7 +31,7 @@ public class DragImage extends Practice {
 		this.SetRootWidget(root);
 	}
 
-	protected cb func OnInitialize() -> Void {
+	protected cb func OnInitialize() {
 		let area = this.GetAreaSize();
 		let size = this.m_logo.GetSize();
 		this.m_logo.SetMargin(new inkMargin((area.X - size.X) / 2.0, 48.0, 0.0, 0.0));
@@ -95,7 +95,7 @@ public class DragImage extends Practice {
 		}
 	}
 
-	protected cb func OnGlobalMove(evt: ref<inkPointerEvent>) -> Void {
+	protected cb func OnGlobalMove(evt: ref<inkPointerEvent>) {
 		let cursor = evt.GetScreenSpacePosition();
 		let margin = this.m_dragStartMargin;
 		let size = this.m_logo.GetSize();
@@ -149,7 +149,7 @@ public class DragImage extends Practice {
 		this.UpdateHints();
 	}
 
-	protected func UpdateHints() -> Void {
+	protected func UpdateHints() {
 		this.UpdateHoldHint(
 			n"mouse_left",
 			this.GetLocalizedText("InkPlayground-DragImage-Action-Drag"),
@@ -157,7 +157,7 @@ public class DragImage extends Practice {
 		);
 	}
 
-	protected func RemoveHints() -> Void {
+	protected func RemoveHints() {
 		this.RemoveHint(n"mouse_left");
 	}
 }

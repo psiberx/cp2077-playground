@@ -6,7 +6,7 @@ public class InputText extends Practice {
 	protected let m_group: ref<inkWidget>;
 	protected let m_input: ref<TextInput>;
 
-	protected cb func OnCreate() -> Void {
+	protected cb func OnCreate() {
 		let root = new inkCanvas();
 		root.SetName(this.GetClassName());
 		root.SetAnchor(inkEAnchor.Fill);
@@ -39,7 +39,7 @@ public class InputText extends Practice {
 		this.SetRootWidget(root);
 	}
 
-	protected cb func OnInitialize() -> Void {
+	protected cb func OnInitialize() {
 		this.Log(this.GetLocalizedText("InkPlayground-InputText-Event-Ready"));
 	}
 }

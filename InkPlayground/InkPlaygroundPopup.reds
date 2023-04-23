@@ -11,7 +11,7 @@ public class InkPlaygroundPopup extends InGamePopup {
 	protected let m_workbench: ref<Workbench>;
 	protected let m_translator: ref<LocalizationSystem>;
 
-	protected cb func OnCreate() -> Void {
+	protected cb func OnCreate() {
 		super.OnCreate();
 
 		this.m_translator = LocalizationSystem.GetInstance(this.GetGame());
@@ -43,7 +43,7 @@ public class InkPlaygroundPopup extends InGamePopup {
 		this.m_workbench.AddPractice(new InputText());
 	}
 
-	protected cb func OnInitialize() -> Void {
+	protected cb func OnInitialize() {
 		super.OnInitialize();
 
 		this.m_workbench.SetHints(this.m_footer.GetHints());
@@ -53,7 +53,7 @@ public class InkPlaygroundPopup extends InGamePopup {
 		return true;
 	}
 
-	public static func Show(requester: ref<inkGameController>) -> Void {
+	public static func Show(requester: ref<inkGameController>) {
 		let popup = new InkPlaygroundPopup();
 
 		// Pass popup options

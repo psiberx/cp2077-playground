@@ -10,7 +10,7 @@ public class Workbench extends inkCustomController {
 	protected let m_translator: wref<LocalizationSystem>;
 	protected let m_areaSize: Vector2;
 
-	protected cb func OnCreate() -> Void {
+	protected cb func OnCreate() {
 		let workbench = new inkFlex();
 		workbench.SetName(n"workbench");
 		workbench.SetAnchor(inkEAnchor.Fill);
@@ -83,23 +83,23 @@ public class Workbench extends inkCustomController {
 		return this.m_areaSize;
 	}
 
-	public func SetSize(areaSize: Vector2) -> Void {
+	public func SetSize(areaSize: Vector2) {
 		this.m_areaSize = areaSize;
 	}
 
-	public func SetHints(buttonHints: wref<ButtonHintsEx>) -> Void {
+	public func SetHints(buttonHints: wref<ButtonHintsEx>) {
 		this.m_buttonHints = buttonHints;
 	}
 
-	public func SetTranslator(localization: wref<LocalizationSystem>) -> Void {
+	public func SetTranslator(localization: wref<LocalizationSystem>) {
 		this.m_translator = localization;
 	}
 
-	public func AddPractice(practice: ref<Practice>) -> Void {
+	public func AddPractice(practice: ref<Practice>) {
 		practice.Assign(this);
 	}
 
-	public func Log(entry: String) -> Void {
+	public func Log(entry: String) {
 		this.m_journal.AddEntry(entry);
 	}
 

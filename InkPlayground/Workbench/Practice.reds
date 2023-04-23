@@ -7,12 +7,12 @@ public abstract class Practice extends inkCustomController {
 	protected let m_workbench: wref<Workbench>;
 	protected let m_container: wref<inkCanvas>;
 
-	protected cb func OnAssign() -> Void {
+	protected cb func OnAssign() {
 		let namespace: String;
 		StrSplitLast(NameToString(this.GetClassName()), ".", namespace, this.m_name);
 	}
 
-	protected cb func OnCreate() -> Void {
+	protected cb func OnCreate() {
 		let root = new inkCanvas();
 		root.SetName(this.GetClassName());
 		root.SetAnchor(inkEAnchor.Fill);
@@ -28,7 +28,7 @@ public abstract class Practice extends inkCustomController {
 		return this.m_workbench.GetTranslator().GetText(key);
 	}
 
-	protected func UpdateHint(action: CName, label: String, active: Bool) -> Void {
+	protected func UpdateHint(action: CName, label: String, active: Bool) {
 		if active {
 			this.m_workbench.GetHints().AddButtonHint(action, label);
 		} else {
@@ -36,11 +36,11 @@ public abstract class Practice extends inkCustomController {
 		}
 	}
 
-	protected func UpdateHint(action: CName, label: String) -> Void {
+	protected func UpdateHint(action: CName, label: String) {
 		this.m_workbench.GetHints().AddButtonHint(action, label);
 	}
 
-	protected func UpdateHoldHint(action: CName, label: String, active: Bool) -> Void {
+	protected func UpdateHoldHint(action: CName, label: String, active: Bool) {
 		if active {
 			this.m_workbench.GetHints().AddButtonHint(action, "[" + GetLocalizedText("LocKey#565") + "] " + label);
 		} else {
@@ -48,31 +48,31 @@ public abstract class Practice extends inkCustomController {
 		}
 	}
 
-	protected func UpdateHoldHint(action: CName, label: String) -> Void {
+	protected func UpdateHoldHint(action: CName, label: String) {
 		this.m_workbench.GetHints().AddButtonHint(action, "[" + GetLocalizedText("LocKey#565") + "] " + label);
 	}
 
-	protected func RemoveHint(action: CName) -> Void {
+	protected func RemoveHint(action: CName) {
 		this.m_workbench.GetHints().RemoveButtonHint(action);
 	}
 
-	protected func LockHints() -> Void {
+	protected func LockHints() {
 		this.m_workbench.GetHints().Lock();
 	}
 
-	protected func UnlockHints() -> Void {
+	protected func UnlockHints() {
 		this.m_workbench.GetHints().Unlock();
 	}
 
-	protected func Log(entry: String) -> Void {
+	protected func Log(entry: String) {
 		this.m_workbench.GetJournal().AddEntry("[" + this.m_name + "] " + entry);
 	}
 
-	protected func Trigger(event: CName) -> Void {
+	protected func Trigger(event: CName) {
 		this.m_workbench.CallCustomCallback(event);
 	}
 
-	public func Assign(workbench: ref<Workbench>) -> Void {
+	public func Assign(workbench: ref<Workbench>) {
 		this.m_workbench = workbench;
 		this.m_container = this.m_workbench.GetContainer();
 

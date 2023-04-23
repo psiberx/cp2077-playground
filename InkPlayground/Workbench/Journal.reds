@@ -5,7 +5,7 @@ public class Journal extends inkCustomController {
 	protected let m_root: wref<inkFlex>;
 	protected let m_log: wref<inkVerticalPanel>;
 
-	protected cb func OnCreate() -> Void {
+	protected cb func OnCreate() {
 		let root = new inkFlex();
 		root.SetName(n"journal");
 		root.SetAnchor(inkEAnchor.LeftFillVerticaly);
@@ -25,7 +25,7 @@ public class Journal extends inkCustomController {
 		this.SetRootWidget(root);
 	}
 
-	public func AddEntry(text: String) -> Void {
+	public func AddEntry(text: String) {
 		let entry = new inkText();
 		entry.SetFontFamily("base\\gameplay\\gui\\fonts\\raj\\raj.inkfontfamily");
 		entry.SetFontStyle(n"Regular");
@@ -42,13 +42,13 @@ public class Journal extends inkCustomController {
 
 	protected func GetMaxEntries() -> Int32 = 7
 
-	protected func TrimEntries() -> Void {
+	protected func TrimEntries() {
 		if this.m_log.GetNumChildren() > this.GetMaxEntries() {
 			this.FadeOutEntry(this.m_log.GetWidgetByIndex(this.m_log.GetNumChildren() - this.GetMaxEntries() - 1));
 		}
 	}
 
-	protected func FadeInEntry(entry: ref<inkWidget>) -> Void {
+	protected func FadeInEntry(entry: ref<inkWidget>) {
 		let marginAnim = new inkAnimMargin();
 		marginAnim.SetStartMargin(new inkMargin(40.0, 0.0, 0.0, 0.0));
 		marginAnim.SetEndMargin(new inkMargin(0.0, 0.0, 0.0, 0.0));
@@ -68,7 +68,7 @@ public class Journal extends inkCustomController {
 		entry.PlayAnimation(animDef);
 	}
 
-	protected func FadeOutEntry(entry: ref<inkWidget>) -> Void {
+	protected func FadeOutEntry(entry: ref<inkWidget>) {
 		let alphaAnim = new inkAnimTransparency();
 		alphaAnim.SetStartTransparency(1.0);
 		alphaAnim.SetEndTransparency(0.0);

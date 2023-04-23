@@ -2,7 +2,7 @@ import InkPlayground.InkPlaygroundPopup
 import Codeware.Localization.LocalizationSystem
 
 @replaceMethod(BaseContextEvents)
-protected final func UpdateGenericExplorationInputHints(stateContext: ref<StateContext>, scriptInterface: ref<StateGameScriptInterface>) -> Void {
+protected final func UpdateGenericExplorationInputHints(stateContext: ref<StateContext>, scriptInterface: ref<StateGameScriptInterface>) {
 	if this.ShouldForceRefreshInputHints(stateContext, scriptInterface) {
 		this.RemoveGenericExplorationInputHints(stateContext, scriptInterface);
 		this.RemoveInkPlaygroundPopupInputHints(stateContext, scriptInterface);
@@ -33,7 +33,7 @@ protected final func UpdateGenericExplorationInputHints(stateContext: ref<StateC
 }
 
 @addMethod(InputContextTransitionEvents)
-protected final func ShowInkPlaygroundPopupInputHints(stateContext: ref<StateContext>, scriptInterface: ref<StateGameScriptInterface>) -> Void {
+protected final func ShowInkPlaygroundPopupInputHints(stateContext: ref<StateContext>, scriptInterface: ref<StateGameScriptInterface>) {
 	let localization = LocalizationSystem.GetInstance(scriptInterface.GetGame());
 	let actionLabel = localization.GetText("InkPlayground-Action-Label");
 
@@ -43,20 +43,20 @@ protected final func ShowInkPlaygroundPopupInputHints(stateContext: ref<StateCon
 }
 
 @addMethod(InputContextTransitionEvents)
-protected final func RemoveInkPlaygroundPopupInputHints(stateContext: ref<StateContext>, scriptInterface: ref<StateGameScriptInterface>) -> Void {
+protected final func RemoveInkPlaygroundPopupInputHints(stateContext: ref<StateContext>, scriptInterface: ref<StateGameScriptInterface>) {
 	this.RemoveInputHintsBySource(scriptInterface, n"InkPlaygroundPopup");
 
 	stateContext.RemovePermanentBoolParameter(n"isInkPlaygroundPopupInputHintDisplayed");
 }
 
 @wrapMethod(InputContextTransitionEvents)
-protected final func RemoveAllInputHints(stateContext: ref<StateContext>, scriptInterface: ref<StateGameScriptInterface>) -> Void {
+protected final func RemoveAllInputHints(stateContext: ref<StateContext>, scriptInterface: ref<StateGameScriptInterface>) {
 	this.RemoveInkPlaygroundPopupInputHints(stateContext, scriptInterface);
 	wrappedMethod(stateContext, scriptInterface);
 }
 
 @wrapMethod(gameuiInGameMenuGameController)
-private final func RegisterInputListenersForPlayer(playerPuppet: ref<GameObject>) -> Void {
+private final func RegisterInputListenersForPlayer(playerPuppet: ref<GameObject>) {
 	wrappedMethod(playerPuppet);
 
 	if playerPuppet.IsControlledByLocalPeer() {
