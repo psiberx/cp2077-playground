@@ -1,0 +1,6 @@
+native func Log(text: script_ref<String>)
+native func LogError(text: script_ref<String>)
+native func LogWarning(text: script_ref<String>)
+native func LogChannel(channel: CName, text: script_ref<String>)
+native func LogChannelError(channel: CName, text: script_ref<String>)
+native func LogChannelWarning(channel: CName, text: script_ref<String>)
