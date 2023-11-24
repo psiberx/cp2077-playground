@@ -2,12 +2,20 @@ import InkPlayground.InkPlaygroundPopup
 import Codeware.Localization.LocalizationSystem
 
 @replaceMethod(BaseContextEvents)
-protected final func UpdateGenericExplorationInputHints(stateContext: ref<StateContext>, scriptInterface: ref<StateGameScriptInterface>) {
-	if this.ShouldForceRefreshInputHints(stateContext, scriptInterface) {
-		this.RemoveGenericExplorationInputHints(stateContext, scriptInterface);
+private final func UpdateHints(stateContext: ref<StateContext>, scriptInterface: ref<StateGameScriptInterface>) -> Void {
+    let context: ActiveBaseContext;
+    let contextTemp: ActiveBaseContext;
+
+    if (this.ShouldForceRefreshInputHints(stateContext)) {
 		this.RemoveInkPlaygroundPopupInputHints(stateContext, scriptInterface);
-		return;
-	}
+		this.RemoveGenericExplorationInputHints(stateContext, scriptInterface);
+		this.RemoveLadderInputHints(stateContext, scriptInterface);
+		this.RemoveSwimmingInputHints(stateContext, scriptInterface);
+		this.RemoveBodyCarryInputHints(stateContext, scriptInterface);
+		this.RemoveMeleeInputHints(stateContext, scriptInterface);
+		this.RemoveRangedInputHints(stateContext, scriptInterface);
+		this.m_isGameplayInputHintRefreshRequired = false;
+    };
 
 	let isValidState = this.IsStateValidForExploration(stateContext, scriptInterface);
 
@@ -30,6 +38,29 @@ protected final func UpdateGenericExplorationInputHints(stateContext: ref<StateC
 			this.RemoveGenericExplorationInputHints(stateContext, scriptInterface);
 		}
 	}
+
+    this.m_hasControllerChanged = this.ConsumeControllerChange(stateContext, scriptInterface);
+    this.m_hasControllerSchemeChanged = this.ConsumeInputSchemeChange();
+
+    context = this.UpdateLocomotionInputHints(stateContext, scriptInterface);
+    if (Equals(context, ActiveBaseContext.None)) {
+		context = this.UpdateLadderInputHints(stateContext, scriptInterface);
+    };
+
+    if (Equals(context, ActiveBaseContext.None)) {
+		context = this.UpdateSwimmingInputHints(stateContext, scriptInterface);
+    };
+
+    if (Equals(context, ActiveBaseContext.None)) {
+		context = this.UpdateBodyCarryInputHints(stateContext, scriptInterface);
+    };
+
+    if (Equals(context, ActiveBaseContext.None) || Equals(context, ActiveBaseContext.BodyCarring)) {
+		contextTemp = this.UpdateWeaponInputHints(stateContext, scriptInterface);
+		context = NotEquals(contextTemp, ActiveBaseContext.None) ? contextTemp : context;
+    };
+
+    this.SetBaseContextInputHints(context, stateContext, scriptInterface);
 }
 
 @addMethod(InputContextTransitionEvents)
