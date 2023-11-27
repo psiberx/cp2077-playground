@@ -68,8 +68,8 @@ public class ButtonBasics extends Practice {
 	}
 
 	protected func RegisterListeners(container: wref<inkCompoundWidget>) {
-		let childIndex: Int32 = 0;
-		let numChildren: Int32 = container.GetNumChildren();
+		let childIndex = 0;
+		let numChildren = container.GetNumChildren();
 
 		while childIndex < numChildren {
 			let widget = container.GetWidgetByIndex(childIndex);
@@ -101,8 +101,8 @@ public class ButtonBasics extends Practice {
 		if evt.IsAction(n"popup_moveUp") {
 			button.SetDisabled(!button.IsDisabled());
 
-			let buttonName: String = button.GetText();
-			let buttonEvent: String = button.IsDisabled()
+			let buttonName = button.GetText();
+			let buttonEvent = button.IsDisabled()
 				? this.GetLocalizedText("InkPlayground-ButtonBasics-Event-Disable")
 				: this.GetLocalizedText("InkPlayground-ButtonBasics-Event-Enable");
 

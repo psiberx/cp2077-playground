@@ -1,35 +1,28 @@
 import InkPlayground.InkPlaygroundPopup
 import Codeware.Localization.LocalizationSystem
 
-@replaceMethod(BaseContextEvents)
-protected final func UpdateGenericExplorationInputHints(stateContext: ref<StateContext>, scriptInterface: ref<StateGameScriptInterface>) {
-	if this.ShouldForceRefreshInputHints(stateContext, scriptInterface) {
-		this.RemoveGenericExplorationInputHints(stateContext, scriptInterface);
-		this.RemoveInkPlaygroundPopupInputHints(stateContext, scriptInterface);
-		return;
-	}
+@wrapMethod(BaseContextEvents)
+private final func UpdateHints(stateContext: ref<StateContext>, scriptInterface: ref<StateGameScriptInterface>) {
+    if this.ShouldForceRefreshInputHints(stateContext) {
+        this.RemoveInkPlaygroundPopupInputHints(stateContext, scriptInterface);
+    }
 
-	let isValidState = this.IsStateValidForExploration(stateContext, scriptInterface);
+    wrappedMethod(stateContext, scriptInterface);
+}
 
-	if isValidState || (this.IsInHighLevelState(stateContext, n"exploration") && DefaultTransition.HasRightWeaponEquipped(scriptInterface)) {
-		if !stateContext.GetBoolParameter(n"isInkPlaygroundPopupInputHintDisplayed", true) {
+@wrapMethod(BaseContextEvents)
+protected final func SetBaseContextInputHints(context: ActiveBaseContext, stateContext: ref<StateContext>, scriptInterface: ref<StateGameScriptInterface>) {
+    if Equals(context, ActiveBaseContext.Locomotion) || Equals(context, ActiveBaseContext.None) {
+        if !stateContext.GetBoolParameter(n"isInkPlaygroundPopupInputHintDisplayed", true) {
 			this.ShowInkPlaygroundPopupInputHints(stateContext, scriptInterface);
 		}
-	} else {
-		if stateContext.GetBoolParameter(n"isInkPlaygroundPopupInputHintDisplayed", true) {
+    } else {
+        if stateContext.GetBoolParameter(n"isInkPlaygroundPopupInputHintDisplayed", true) {
 			this.RemoveInkPlaygroundPopupInputHints(stateContext, scriptInterface);
 		}
-	}
+    }
 
-	if isValidState {
-		if !stateContext.GetBoolParameter(n"isLocomotionInputHintDisplayed", true) {
-			this.ShowGenericExplorationInputHints(stateContext, scriptInterface);
-		}
-	} else {
-		if stateContext.GetBoolParameter(n"isLocomotionInputHintDisplayed", true) {
-			this.RemoveGenericExplorationInputHints(stateContext, scriptInterface);
-		}
-	}
+    wrappedMethod(context, stateContext, scriptInterface);
 }
 
 @addMethod(InputContextTransitionEvents)
@@ -81,7 +74,7 @@ protected cb func OnAction(action: ListenerAction, consumer: ListenerActionConsu
 		}
 
 		if !Codeware.Require("1.1.4") {
-		    LogChannel(n"DEBUG", "InkPLayground requires Codeware 1.1.4");
+		    LogChannel(n"DEBUG", "InkPLayground requires Codeware 1.1.4+");
 		    return;
 		}
 

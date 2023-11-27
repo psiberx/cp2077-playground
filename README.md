@@ -1,7 +1,12 @@
+## Patch 2.0
+
+- `Console.reds` – Defines console functions that were removed in game patch 2.0
+- `Log.reds` – Defines logging functions that were removed in game patch 2.0
+
 ## Dev Tools
 
-- `AutoContinue.reds` – Load last used save on game start skipping the Main Menu.
-- `LogDebug.reds` – Defines logging functions that write to `DEBUG` channel.
+- `AutoContinue.reds` – Load last used save on game start skipping the Main Menu
+- `LogDebug.reds` – Defines additional logging functions that write to `DEBUG` channel
 
 ## Ink Playground
 
