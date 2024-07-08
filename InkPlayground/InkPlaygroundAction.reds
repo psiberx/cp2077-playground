@@ -10,7 +10,7 @@ private final func UpdateHints(stateContext: ref<StateContext>, scriptInterface:
     wrappedMethod(stateContext, scriptInterface);
 }
 
-@wrapMethod(BaseContextEvents)
+@wrapMethod(InputContextTransitionEvents)
 protected final func SetBaseContextInputHints(context: ActiveBaseContext, stateContext: ref<StateContext>, scriptInterface: ref<StateGameScriptInterface>) {
     if Equals(context, ActiveBaseContext.Locomotion) || Equals(context, ActiveBaseContext.None) {
         if !stateContext.GetBoolParameter(n"isInkPlaygroundPopupInputHintDisplayed", true) {
